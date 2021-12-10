@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { Card, CardContent, FormControl, InputLabel, makeStyles, Select, TextField } from '@material-ui/core'
-import { list } from './api-products';
-import { list as listProviders } from './api-providers';
+import Products from './components/Products.component';
+import Providers from './components/Providers.component';
+import DateComponent from './components/Date.component';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -27,71 +28,18 @@ const useStyles = makeStyles((theme) => ({
     margin: 'auto',
     marginBottom: theme.spacing(2),
   },
-  formControl: {
-    margin: theme.spacing(1),
-    width: "90%",
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
 }));
 
 export default function Form() {
 
   const classes = useStyles();
-  const [values, setValues] = useState({
-    product: '',
-    provider: ''
-  });
-
-  const [api, setApi] = useState({
-    products: [],
-    providers: []
-  })
-
-  const handleChange = (name) => (event) => {
-    setValues({ ...values, [name]: event.target.value });
-  };
-
-  useEffect(async () => {
-    const _products = await list()
-    const _providers = await listProviders()
-
-    setApi({ ...api, providers: _providers, products: _products })
-
-  }, [])
-
 
   return (
     <Card className={classes.card}>
       <CardContent>
-        <FormControl className={classes.formControl}>
-          <InputLabel id="product-label">Producto</InputLabel>
-          <Select
-            labelId="product-label"
-            id="product"
-            value={values.product}
-            onChange={handleChange("product")}
-          >
-
-            {api.products.map(product => <option key={product._id} value={product.name}>{product.name}</option>)}
-
-          </Select>
-        </FormControl>
-        <FormControl className={classes.formControl}>
-          <InputLabel id="provider-label">Medio</InputLabel>
-          <Select
-            labelId="provider-label"
-            id="provider"
-            value={values.provider}
-            onChange={handleChange("provider")}
-            disabled={!values.product.length > 0}
-          >
-
-            {api.providers.map(provider => <option key={provider._id} value={provider.name}>{provider.name}</option>)}
-
-          </Select>
-        </FormControl>
+        <Products />
+        <Providers />
+        <DateComponent />
         <br />
       </CardContent>
     </Card>
