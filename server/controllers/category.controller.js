@@ -19,7 +19,6 @@ const create = async (req, res) => {
 const list = async (req, res) => {
   try {
     let categories = await Category.find().select('name products updated created');
-    console.log("==>", categories);
     res.json(categories);
   } catch (err) {
     return res.status(400).json({
@@ -44,12 +43,11 @@ const categoryByID = async (req, res, next, id) => {
   }
 };
 
-const productsByCategory = async (req, res) => {
+const read = async (req, res) => {
   try {
-    const id = req.category
-    const category = await Category.findById(id).populate('products');
-    console.log("===>Cate", category.products);
-    res.json(category.products);
+    const category_id = req.category
+    const category = await Category.findById(category_id).populate('products');
+    res.json(category);
   } catch (error) {
     return res.status('400').json({
       error: 'Could not retrieve category',
@@ -57,4 +55,4 @@ const productsByCategory = async (req, res) => {
   }
 }
 
-export default { create, categoryByID, list, productsByCategory };
+export default { create, categoryByID, list, read };

@@ -2,28 +2,25 @@ import mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
 
-const ProductSchema = new Schema({
+const ProviderSchema = new Schema({
   name: {
     type: String,
     trim: true,
     required: 'El Nombre es requerido',
   },
-  price: {
+  email: {
     type: String,
     required: true
   },
-  days: {
-    type: [String],
+  phone: {
+    type: String,
     required: true
   },
-  category: {
-    type: Schema.Types.ObjectId,
-    ref: "Category"
-  },
-  provider: {
-    type: Schema.Types.ObjectId,
-    ref: "Provider"
-  },
+  products:
+    [{
+      type: Schema.Types.ObjectId,
+      ref: "Product"
+    }],
   created: {
     type: Date,
     default: Date.now,
@@ -32,4 +29,4 @@ const ProductSchema = new Schema({
 });
 
 
-export default mongoose.model('Product', ProductSchema);
+export default mongoose.model('Provider', ProviderSchema);

@@ -3,9 +3,14 @@ import categoryCtrl from '../controllers/category.controller';
 
 const router = express.Router();
 
-router.route('/api/categories').get(categoryCtrl.list).post(categoryCtrl.create);
+router
+  .route('/api/categories')
+  .get(categoryCtrl.list)
+  .post(categoryCtrl.create);
 
-router.get('/api/category/products/:categoryId', categoryCtrl.productsByCategory)
+router
+  .route('/api/category/:categoryId')
+  .get(categoryCtrl.read)
 
 // router
 //   .route('/api/categories/:categoryId')
