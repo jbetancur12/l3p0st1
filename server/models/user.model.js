@@ -7,18 +7,48 @@ const UserSchema = new Schema({
   name: {
     type: String,
     trim: true,
-    required: 'Name is required',
+    required: 'El Nombre es requerido',
+  },
+  lname: {
+    type: String,
+    trim: true,
+    required: 'El Apellido es requerido',
+  },
+  doc_id: {
+    type: String,
+    unique: 'Cedula ya existe',
+    trim: true,
+    required: 'Número de cedula es requerido',
+  },
+  phone: {
+    type: String,
+    trim: true,
+    required: 'Número de celular es requerido',
+  },
+  city: {
+    type: String,
+    trim: true,
+    required: 'La ciudad es requerida',
+  },
+  address: {
+    type: String,
+    trim: true,
+    required: 'La dirección es requerida',
   },
   email: {
     type: String,
     trim: true,
     unique: 'Email already exists',
     match: [/.+\@.+\..+/, 'Please fill a valid email address'],
-    required: 'Email is required',
+    required: 'Email es requerido',
   },
   hashed_password: {
     type: String,
     required: 'Password is required',
+  },
+  admin: {
+    type: Boolean,
+    default: false,
   },
   salt: String,
   created: {

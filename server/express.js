@@ -8,6 +8,8 @@ import helmet from 'helmet';
 import Template from './../template';
 import userRoutes from './routes/user.routes';
 import authRoutes from './routes/auth.routes';
+import categoryRoutes from './routes/category.routes';
+import productRoutes from './routes/product.routes';
 import devBundle from './devBundle';
 
 import React from 'react';
@@ -35,6 +37,8 @@ app.use(cors());
 app.use('/dist', express.static(path.join(CURRENT_WORKING_DIR, 'dist')));
 app.use('/', userRoutes);
 app.use('/', authRoutes);
+app.use('/', categoryRoutes);
+app.use('/', productRoutes);
 
 app.get('*', (req, res) => {
   const sheets = new ServerStyleSheets();

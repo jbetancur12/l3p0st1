@@ -4,6 +4,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import Checkbox from '@material-ui/core/Checkbox';
 import Typography from '@material-ui/core/Typography';
 import Icon from '@material-ui/core/Icon';
 import { makeStyles } from '@material-ui/core/styles';
@@ -49,10 +50,20 @@ export default function Signup() {
     email: '',
     open: false,
     error: '',
+    terms: false,
+    lname: '',
+    address: '',
+    city: '',
+    phone: '',
+    doc_id: ''
   });
 
   const handleChange = (name) => (event) => {
     setValues({ ...values, [name]: event.target.value });
+  };
+
+  const handleChangeCB = (name) => (event) => {
+    setValues({ ...values, [name]: event.target.checked });
   };
 
   const clickSubmit = () => {
@@ -60,6 +71,12 @@ export default function Signup() {
       name: values.name || undefined,
       email: values.email || undefined,
       password: values.password || undefined,
+      lname: values.lname || undefined,
+      doc_id: values.doc_id || undefined,
+      phone: values.doc_id || undefined,
+      city: values.city || undefined,
+      address: values.address || undefined,
+      terms: values.terms || undefined
     };
     create(user).then((data) => {
       if (data.error) {
@@ -75,15 +92,36 @@ export default function Signup() {
       <Card className={classes.card}>
         <CardContent>
           <Typography variant='h6' className={classes.title}>
-            Sign Up
+            Registrate
           </Typography>
           <TextField
             id='name'
-            label='Name'
+            label='Nombres'
             className={classes.textField}
             value={values.name}
             onChange={handleChange('name')}
             margin='normal'
+            required
+          />
+          <br />
+          <TextField
+            id='lname'
+            label='Apellidos'
+            className={classes.textField}
+            value={values.lname}
+            onChange={handleChange('lname')}
+            margin='normal'
+            required
+          />
+          <br />
+          <TextField
+            id='doc_id'
+            label='Número de Cedula'
+            className={classes.textField}
+            value={values.doc_id}
+            onChange={handleChange('doc_id')}
+            margin='normal'
+            required
           />
           <br />
           <TextField
@@ -94,6 +132,7 @@ export default function Signup() {
             value={values.email}
             onChange={handleChange('email')}
             margin='normal'
+            required
           />
           <br />
           <TextField
@@ -104,8 +143,47 @@ export default function Signup() {
             value={values.password}
             onChange={handleChange('password')}
             margin='normal'
+            required
           />
-          <br />{' '}
+          <br />
+          <TextField
+            id='phone'
+            label='Número de celular'
+            className={classes.textField}
+            value={values.phone}
+            onChange={handleChange('phone')}
+            margin='normal'
+            required
+          />
+          <br />
+          <TextField
+            id='city'
+            label='Ciudad'
+            className={classes.textField}
+            value={values.city}
+            onChange={handleChange('city')}
+            margin='normal'
+            required
+          />
+          <br />
+          <TextField
+            id='address'
+            label='Dirección'
+            className={classes.textField}
+            value={values.address}
+            onChange={handleChange('address')}
+            margin='normal'
+            required
+          />
+          <br />
+          <Checkbox
+            id='terms'
+            checked={values.terms}
+            onChange={handleChangeCB('terms')}
+            name="terms"
+            color="primary"
+          />
+          <br />
           {values.error && (
             <Typography component='p' color='error'>
               <Icon color='error' className={classes.error}>
