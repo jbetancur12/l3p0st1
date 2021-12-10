@@ -24,10 +24,16 @@ const ProductSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Provider"
   },
+  orders:
+    [{
+      type: Schema.Types.ObjectId,
+      ref: "Order"
+    }],
   created: {
     type: Date,
     default: Date.now,
   },
+
   updated: Date,
 });
 

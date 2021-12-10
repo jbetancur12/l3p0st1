@@ -5,9 +5,9 @@ import providerCtrl from '../controllers/provider.controller';
 
 const router = express.Router();
 
-router.route('/api/products').get(productCtrl.list)
+router.route('/api/products').get(productCtrl.list).post(productCtrl.create)
 
-router.post('/api/product/:categoryId/:providerId', productCtrl.create)
+//router.post('/api/product/:categoryId/:providerId', productCtrl.create)
 
 router
   .route('/api/product/:productId')
@@ -16,8 +16,8 @@ router
 // .put(categoryCtrl.update)
 // .delete(categoryCtrl.remove);
 
-router.param('categoryId', categoryCtrl.categoryByID);
-router.param('providerId', providerCtrl.providerByID);
+//router.param('categoryId', categoryCtrl.categoryByID);
+//router.param('providerId', providerCtrl.providerByID);
 router.param('productId', productCtrl.productByID);
 
 export default router;

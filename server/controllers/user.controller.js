@@ -29,7 +29,7 @@ const list = async (req, res) => {
 
 const userByID = async (req, res, next, id) => {
   try {
-    let user = await User.findById(id);
+    let user = await User.findById(id).populate('orders');
     if (!user)
       return res.status('400').json({
         error: 'User not found',

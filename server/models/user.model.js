@@ -50,6 +50,11 @@ const UserSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  orders:
+    [{
+      type: Schema.Types.ObjectId,
+      ref: "Order"
+    }],
   salt: String,
   created: {
     type: Date,

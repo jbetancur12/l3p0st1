@@ -1,14 +1,17 @@
 import Product from '../models/product.model';
+import Provider from '../models/provider.model';
+import Category from '../models/category.model';
 import errorHandler from '../helpers/dbErrorHandler';
 
 const list = async (req, res) => {
   try {
-    let products = await Product.find();
+    let products = await Product.find().populate("provider", "name").populate("category", "name");
     res.json(products);
   } catch (err) {
     return res.status(400).json({
       error: errorHandler.getErrorMessage(err),
     });
+    
   }
 };
 
@@ -17,11 +20,11 @@ const create = async (req, res) => {
   try {
     await product.save();
 
-    const category_id = req.category
+    const category_id = await Category.findById(req.body.category)
     category_id.products.push(product)
     await category_id.save()
 
-    const provider_id = req.provider
+    const provider_id = await Provider.findById(req.body.provider)
     provider_id.products.push(product)
     await provider_id.save()
 
@@ -38,7 +41,7 @@ const create = async (req, res) => {
 const read = async (req, res) => {
   try {
     const product_id = req.product
-    const product = await Product.findById(product_id);
+    const product = await Product.findById(product_id).populate("provider");
     res.json(product);
   } catch (error) {
     return res.status('400').json({

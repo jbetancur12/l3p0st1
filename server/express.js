@@ -11,6 +11,7 @@ import authRoutes from './routes/auth.routes';
 import categoryRoutes from './routes/category.routes';
 import productRoutes from './routes/product.routes';
 import providerRoutes from './routes/provider.routes';
+import orderRoutes from './routes/order.routes';
 import devBundle from './devBundle';
 
 import React from 'react';
@@ -41,6 +42,7 @@ app.use('/', authRoutes);
 app.use('/', categoryRoutes);
 app.use('/', productRoutes);
 app.use('/', providerRoutes);
+app.use('/', orderRoutes);
 
 app.get('*', (req, res) => {
   const sheets = new ServerStyleSheets();
