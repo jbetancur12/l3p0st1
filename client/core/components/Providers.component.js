@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react'
-import { FormControl, InputLabel, makeStyles, Select } from '@material-ui/core'
-import { list } from '../api-providers';
+import React, { useState, useEffect, useContext } from 'react'
+import { FormControl, InputLabel, makeStyles, MenuItem, Select } from '@material-ui/core'
+import { listProvidersByCategory } from '../api-providers';
+
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -9,25 +10,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Providers() {
+export default function Providers(props) {
   const classes = useStyles()
+  const { values, setValues } = props.values
 
-  const [values, setValues] = useState({
-    provider: '',
-    providers: []
-  });
+
+  const [providers, setProviders] = useState([]);
 
 
   const handleChange = (name) => (event) => {
     setValues({ ...values, [name]: event.target.value });
+
   };
 
 
   useEffect(async () => {
-    const _providers = await list()
-    setValues({ ...values, providers: _providers })
+    const _providers = await listProvidersByCategory(values.category.id)
+    console.log(_providers.providers.length);
+    if (_providers.providers) setProviders(_providers.providers)
 
-  }, [])
+  }, [values])
   return (
     <FormControl className={classes.formControl}>
       <InputLabel id="provider-label">Medio</InputLabel>
@@ -38,7 +40,7 @@ export default function Providers() {
         onChange={handleChange("provider")}
       >
 
-        {values.providers.map(provider => <option key={provider._id} value={provider.name}>{provider.name}</option>)}
+        {providers.length > 0 && providers.map(provider => <MenuItem key={provider._id} value={provider.name}>{provider.name}</MenuItem>)}
 
       </Select>
     </FormControl>

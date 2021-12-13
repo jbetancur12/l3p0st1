@@ -2,6 +2,7 @@ import Product from '../models/product.model';
 import Provider from '../models/provider.model';
 import Category from '../models/category.model';
 import errorHandler from '../helpers/dbErrorHandler';
+import { countBy } from 'lodash';
 
 const list = async (req, res) => {
   try {
@@ -11,9 +12,43 @@ const list = async (req, res) => {
     return res.status(400).json({
       error: errorHandler.getErrorMessage(err),
     });
-    
+
   }
 };
+
+const price = async (req, res) => {
+
+  try {
+    const product = await Product.find(
+      {
+        $and: [
+          {
+            "category._id": req.category._id
+          },
+          {
+            "provider._id": req.provider._id
+          },
+          {
+            length:
+            {
+              $gte: req.params.length
+            }
+          }]
+      }
+    )
+
+    // .where("category._id").equals(req.category._id)
+    // .where("provider._id").equals(req.provider._id)
+    // .where("length").gte(parseFloat(req.params.length))
+    console.log(product);
+
+    res.json(product);
+  } catch (error) {
+    return res.status('400').json({
+      error: 'Could not retrieve product',
+    });
+  }
+}
 
 const create = async (req, res) => {
   const product = new Product(req.body);
@@ -50,6 +85,27 @@ const read = async (req, res) => {
   }
 }
 
+const update = async (req, res) => {
+  try {
+    Product.findByIdAndUpdate(req.product._id, {
+      $set: req.body
+    }, (error, data) => {
+      if (error) {
+        return next(error);
+        console.log(error)
+      } else {
+        res.status(200).json({ message: "Product updated successfully !" })
+
+      }
+    })
+
+  } catch (error) {
+    return res.status('400').json({
+      error: 'Could not retrieve product',
+    });
+  }
+}
+
 const productByID = async (req, res, next, id) => {
   try {
     let product = await Product.findById(id);
@@ -67,4 +123,6 @@ const productByID = async (req, res, next, id) => {
   }
 };
 
-export default { create, read, productByID, list }
+
+
+export default { create, read, productByID, list, price, update }

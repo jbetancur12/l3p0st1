@@ -11,6 +11,7 @@ router
 router
   .route('/api/category/:categoryId')
   .get(categoryCtrl.read)
+  .put(categoryCtrl.update)
 
 // router
 //   .route('/api/categories/:categoryId')

@@ -17,7 +17,7 @@ const config = {
     rules: [
       {
         test: /\.js$/,
-        exclude: /node_modules/,
+        exclude: /node_modules(?!\/quill)/,
         use: ['babel-loader'],
       },
       {

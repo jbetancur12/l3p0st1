@@ -21,6 +21,11 @@ const ProviderSchema = new Schema({
       type: Schema.Types.ObjectId,
       ref: "Product"
     }],
+  categories:
+    [{
+      type: Schema.Types.ObjectId,
+      ref: "Category"
+    }],
   created: {
     type: Date,
     default: Date.now,

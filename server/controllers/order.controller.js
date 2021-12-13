@@ -26,7 +26,6 @@ const create = async (req, res) => {
     await user_id.save()
 
     const product_id = await Product.findById(req.body.product)
-    console.log(product_id);
     product_id.orders.push(order)
     await product_id.save()
 

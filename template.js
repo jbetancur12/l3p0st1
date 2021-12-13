@@ -7,6 +7,9 @@ export default ({ markup, css }) => {
             <title>MERN Skeleton</title>
             <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400">
             <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+            <link rel="stylesheet" href="https://unpkg.com/react-quill@1.3.3/dist/quill.snow.css">
+            
+            
             <style>
               a{
                 text-decoration: none;

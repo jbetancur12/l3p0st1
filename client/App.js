@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/styles';
 import theme from './theme';
 import { hot } from 'react-hot-loader';
+import AppProvider from './core/AppContext';
 
 const App = () => {
   React.useEffect(() => {
@@ -13,11 +14,13 @@ const App = () => {
     }
   }, []);
   return (
-    <BrowserRouter>
-      <ThemeProvider theme={theme}>
-        <MainRouter />
-      </ThemeProvider>
-    </BrowserRouter>
+    <AppProvider>
+      <BrowserRouter>
+        <ThemeProvider theme={theme}>
+          <MainRouter />
+        </ThemeProvider>
+      </BrowserRouter>
+    </AppProvider>
   );
 };
 

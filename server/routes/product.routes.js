@@ -12,12 +12,17 @@ router.route('/api/products').get(productCtrl.list).post(productCtrl.create)
 router
   .route('/api/product/:productId')
   .get(productCtrl.read)
+  .put(productCtrl.update)
 
+router.route('/api/product/:providerName/:categoryName/:length')
+  .get(productCtrl.price)
 // .put(categoryCtrl.update)
 // .delete(categoryCtrl.remove);
 
 //router.param('categoryId', categoryCtrl.categoryByID);
 //router.param('providerId', providerCtrl.providerByID);
 router.param('productId', productCtrl.productByID);
+router.param('providerName', providerCtrl.providerName);
+router.param('categoryName', categoryCtrl.categoryName);
 
 export default router;

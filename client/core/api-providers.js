@@ -1,13 +1,14 @@
-const list = async () => {
+const listProvidersByCategory = async (id) => {
   try {
-    let response = await fetch('/api/providers/', {
+    let response = await fetch('/api/category/' + id, {
       method: 'GET',
 
     });
+    console.log(response);
     return await response.json();
   } catch (err) {
     console.log(err);
   }
 };
 
-export { list }
+export { listProvidersByCategory }

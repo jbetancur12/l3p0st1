@@ -21,6 +21,10 @@ const CategorySchema = new Schema({
       type: Schema.Types.ObjectId,
       ref: "Product"
     }],
+  providers: [{
+    type: Schema.Types.ObjectId,
+    ref: "Provider"
+  }],
 
   updated: Date,
 });
