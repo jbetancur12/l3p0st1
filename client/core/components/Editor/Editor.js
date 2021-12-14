@@ -43,8 +43,8 @@ const useStyles = makeStyles((theme) => ({
   },
   buttonContainer: {
     display: 'flex',
-    justifyContent: 'center'
-  }
+    justifyContent: 'center',
+  },
 }));
 
 function rand() {
@@ -78,7 +78,11 @@ function Editor(props) {
       </div>
       <WYSIWYG values={{ values, setValues }} />
       <div className={classes.buttonContainer}>
-        <Button className={classes.button} variant='contained' onClick={handleClose('accept')}>
+        <Button
+          className={classes.button}
+          variant='contained'
+          onClick={handleClose('accept')}
+        >
           Aceptar
         </Button>
         <Button
