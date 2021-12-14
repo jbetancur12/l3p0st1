@@ -43,7 +43,6 @@ const price = async (req, res) => {
       // .where("category._id").equals(req.category._id)
       // .where("provider._id").equals(req.provider._id)
       // .where("length").gte(parseFloat(req.params.length))
-      console.log('=>S', product);
 
       res.json(product);
     }

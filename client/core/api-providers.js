@@ -10,7 +10,6 @@ const listProvidersByCategory = async (id) => {
 };
 
 const listPrices = async (values) => {
-  console.log(values);
   try {
     let response = await fetch(
       '/api/product/price/' + values.provider + '/' + values.category.name,
@@ -18,7 +17,6 @@ const listPrices = async (values) => {
         method: 'GET',
       },
     );
-    console.log(response);
     return await response.json();
   } catch (err) {
     console.log(err);

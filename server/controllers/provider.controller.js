@@ -48,7 +48,6 @@ const providerByID = async (req, res, next, id) => {
 const providerName = async (req, res, next, name) => {
   try {
     let provider = await Provider.find({ name: name });
-    // console.log(provider);
     if (!provider)
       return res.status('400').json({
         error: 'provider not found',
@@ -75,7 +74,6 @@ const read = async (req, res) => {
 };
 
 const providersByCategory = async (req, res) => {
-  console.log(req.category);
   try {
     let provider = await Provider.findById(id);
 

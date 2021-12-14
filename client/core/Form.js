@@ -16,6 +16,7 @@ import DateComponent from './components/Date.component';
 
 import { getDay } from 'date-fns';
 import Editor from './components/Editor/Editor';
+import { dayOfWeek } from '../helpers/dates';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -51,16 +52,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const dayOfWeek = {
-  0: 'domingo',
-  1: 'lunes',
-  2: 'martes',
-  3: 'miercoles',
-  4: 'jueves',
-  5: 'viernes',
-  6: 'sabado',
-};
-
 export default function Form() {
   const classes = useStyles();
 
@@ -77,14 +68,19 @@ export default function Form() {
   };
 
   const handleChangeCB = (name) => (event) => {
-    console.log(name);
     setValues({ ...values, [event.target.name]: event.target.checked });
   };
 
   const handleQuotation = async () => {
-    if (!values.email || !values.category || !values.provider || !values.content || !values.terms) {
-      setValues({ ...values, error: "Llenar los campos" });
-      return
+    if (
+      !values.email ||
+      !values.category ||
+      !values.provider ||
+      !values.content ||
+      !values.terms
+    ) {
+      setValues({ ...values, error: 'Llenar los campos' });
+      return;
     }
     const textLength = values.content.length;
     const dayToPublish = dayOfWeek[getDay(values.date)];
@@ -95,7 +91,6 @@ export default function Form() {
     return _quote;
   };
 
-  console.log(values);
   return (
     <Card className={classes.card}>
       <CardContent>
@@ -147,6 +142,6 @@ export default function Form() {
 
         <br />
       </CardContent>
-    </Card >
+    </Card>
   );
 }
