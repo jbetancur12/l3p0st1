@@ -1,26 +1,23 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext } from 'react';
 import { Editor, EditorState, ContentState } from 'draft-js';
-import { makeStyles } from '@material-ui/core'
-
-
-
+import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
-    width: "90%",
-    border: "1px solid gray",
-    minHeight: 50
+    width: '90%',
+    border: '1px solid gray',
+    minHeight: 50,
   },
 }));
 
-
 export default function WYSIWYG(props) {
-  const classes = useStyles()
-  const { values, setValues } = props.values
+  const classes = useStyles();
+  const { values, setValues } = props.values;
 
-
-  const [editorState, setEditorState] = useState(EditorState.createWithContent(ContentState.createFromText(values.content)))
+  const [editorState, setEditorState] = useState(
+    EditorState.createWithContent(ContentState.createFromText(values.content)),
+  );
 
   const editor = React.useRef(null);
 
@@ -29,12 +26,15 @@ export default function WYSIWYG(props) {
   }
 
   const handleOnChange = (name) => (editorState) => {
-    setEditorState(editorState)
-    setValues({ ...values, [name]: editorState.getCurrentContent().getPlainText('\u0001') })
-  }
+    setEditorState(editorState);
+    setValues({
+      ...values,
+      [name]: editorState.getCurrentContent().getPlainText('\u0001'),
+    });
+  };
 
   React.useEffect(() => {
-    focusEditor()
+    focusEditor();
   }, []);
 
   return (
@@ -42,7 +42,7 @@ export default function WYSIWYG(props) {
       <Editor
         ref={editor}
         editorState={editorState}
-        onChange={handleOnChange("content")}
+        onChange={handleOnChange('content')}
       />
     </div>
   );

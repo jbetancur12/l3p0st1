@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 
-
 const Schema = mongoose.Schema;
 
 const CategorySchema = new Schema({
@@ -10,24 +9,26 @@ const CategorySchema = new Schema({
     required: 'El Nombre es requerido',
   },
   format: {
-    type: String
+    type: String,
   },
   created: {
     type: Date,
     default: Date.now,
   },
-  products:
-    [{
+  products: [
+    {
       type: Schema.Types.ObjectId,
-      ref: "Product"
-    }],
-  providers: [{
-    type: Schema.Types.ObjectId,
-    ref: "Provider"
-  }],
+      ref: 'Product',
+    },
+  ],
+  providers: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Provider',
+    },
+  ],
 
   updated: Date,
 });
-
 
 export default mongoose.model('Category', CategorySchema);

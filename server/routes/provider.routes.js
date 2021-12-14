@@ -6,13 +6,14 @@ const router = express.Router();
 
 router.route('/api/providers').get(providerCtrl.list).post(providerCtrl.create);
 
-router.route('/api/providers/categories/:categoryId').get(providerCtrl.providersByCategory)
+router
+  .route('/api/providers/categories/:categoryId')
+  .get(providerCtrl.providersByCategory);
 
 router
   .route('/api/provider/:providerId')
   .get(providerCtrl.read)
-  .put(providerCtrl.update)
-
+  .put(providerCtrl.update);
 
 // router
 //   .route('/api/categories/:providerId')

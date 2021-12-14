@@ -5,17 +5,18 @@ import providerCtrl from '../controllers/provider.controller';
 
 const router = express.Router();
 
-router.route('/api/products').get(productCtrl.list).post(productCtrl.create)
+router.route('/api/products').get(productCtrl.list).post(productCtrl.create);
 
 //router.post('/api/product/:categoryId/:providerId', productCtrl.create)
 
 router
   .route('/api/product/:productId')
   .get(productCtrl.read)
-  .put(productCtrl.update)
+  .put(productCtrl.update);
 
-router.route('/api/product/:providerName/:categoryName/:length')
-  .get(productCtrl.price)
+router
+  .route('/api/product/price/:providerName/:categoryName')
+  .get(productCtrl.price);
 // .put(categoryCtrl.update)
 // .delete(categoryCtrl.remove);
 

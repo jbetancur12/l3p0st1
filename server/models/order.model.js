@@ -1,52 +1,51 @@
 import mongoose from 'mongoose';
 
-
 const Schema = mongoose.Schema;
 
 const OrderSchema = new Schema({
   status: {
     type: Boolean,
-    deafult: false
+    deafult: false,
   },
   total: {
-    type: String
+    type: String,
   },
   content: {
-    type: String
+    type: String,
   },
   publish_date: {
-    type: Date
+    type: Date,
   },
   reference: {
-    type: String
+    type: String,
   },
   payment_method: {
-    type: String
+    type: String,
   },
   published: {
     type: Boolean,
-    default: false
+    default: false,
   },
   ordered: {
     type: Boolean,
-    default: false
+    default: false,
   },
   temp_email: {
-    type: String
+    type: String,
   },
   user: {
     type: Schema.Types.ObjectId,
-    ref: "User"
+    ref: 'User',
   },
   product: {
     type: Schema.Types.ObjectId,
-    ref: "Product"
+    ref: 'Product',
   },
   created: {
     type: Date,
     default: Date.now,
   },
   updated: Date,
-})
+});
 
 export default mongoose.model('Order', OrderSchema);

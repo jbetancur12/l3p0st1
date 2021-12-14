@@ -10,28 +10,29 @@ const ProviderSchema = new Schema({
   },
   email: {
     type: String,
-    required: true
+    required: true,
   },
   phone: {
     type: String,
-    required: true
+    required: true,
   },
-  products:
-    [{
+  products: [
+    {
       type: Schema.Types.ObjectId,
-      ref: "Product"
-    }],
-  categories:
-    [{
+      ref: 'Product',
+    },
+  ],
+  categories: [
+    {
       type: Schema.Types.ObjectId,
-      ref: "Category"
-    }],
+      ref: 'Category',
+    },
+  ],
   created: {
     type: Date,
     default: Date.now,
   },
   updated: Date,
 });
-
 
 export default mongoose.model('Provider', ProviderSchema);

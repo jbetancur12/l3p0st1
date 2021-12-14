@@ -10,30 +10,31 @@ const ProductSchema = new Schema({
   },
   price: {
     type: String,
-    required: true
+    required: true,
   },
   days: {
     type: [String],
-    required: true
+    required: true,
   },
   length: {
     type: Number,
     required: true,
-    default: 0
+    default: 0,
   },
   category: {
     type: Schema.Types.ObjectId,
-    ref: "Category"
+    ref: 'Category',
   },
   provider: {
     type: Schema.Types.ObjectId,
-    ref: "Provider"
+    ref: 'Provider',
   },
-  orders:
-    [{
+  orders: [
+    {
       type: Schema.Types.ObjectId,
-      ref: "Order"
-    }],
+      ref: 'Order',
+    },
+  ],
   created: {
     type: Date,
     default: Date.now,
@@ -41,6 +42,5 @@ const ProductSchema = new Schema({
 
   updated: Date,
 });
-
 
 export default mongoose.model('Product', ProductSchema);

@@ -1,14 +1,26 @@
-import React, { useContext } from 'react'
-import { Button, Card, CardContent, Checkbox, FormControlLabel, makeStyles, Modal, Select, TextField } from '@material-ui/core'
+import React, { useContext } from 'react';
+import {
+  Button,
+  Card,
+  CardContent,
+  Checkbox,
+  FormControlLabel,
+  makeStyles,
+  Modal,
+  Select,
+  TextField,
+} from '@material-ui/core';
 import Categories from './components/Categories.component';
 import Providers from './components/Providers.component';
 import DateComponent from './components/Date.component';
 import WYSIWYG from './components/WYSIWYG.component';
-import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
-import { getPrice } from './api-categories';
-
-
-
+import {
+  BrowserView,
+  MobileView,
+  isBrowser,
+  isMobile,
+} from 'react-device-detect';
+import { getDay } from 'date-fns'
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -42,7 +54,6 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 5,
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
-
   },
   textField: {
     marginLeft: theme.spacing(1),
@@ -50,18 +61,29 @@ const useStyles = makeStyles((theme) => ({
     width: 300,
   },
   button: {
-    width: "90%"
+    width: '90%',
   },
   buttonEditor: {
-    width: "90%",
+    width: '90%',
     background: theme.palette.primary.light,
-    color: "#fff"
-  }
+    color: '#fff',
+  },
 }));
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;
 }
+
+const dayOfWeek = {
+  0: 'domingo',
+  1: 'lunes',
+  2: 'martes',
+  3: 'miercoles',
+  4: 'jueves',
+  5: 'viernes',
+  6: 'sabado',
+};
+
 
 function getModalStyle() {
   const top = 50 + rand();
@@ -75,8 +97,6 @@ function getModalStyle() {
 }
 
 export default function Form() {
-
-
   const classes = useStyles();
 
   const [modalStyle] = React.useState(getModalStyle);
@@ -86,7 +106,7 @@ export default function Form() {
     terms: false,
     category: '',
     date: Date.now(),
-    content: ''
+    content: '',
   });
 
   const handleOpen = () => {
@@ -94,30 +114,47 @@ export default function Form() {
   };
 
   const handleClose = (action) => () => {
-    if (action === "accept") {
+    if (action === 'accept') {
       setOpen(false);
     }
-    if (action === "cancel") {
+    if (action === 'cancel') {
       setOpen(false);
-      setValues({ ...values, content: '' })
+      setValues({ ...values, content: '' });
     }
   };
 
   const body = (
     <div style={modalStyle} className={classes.paper}>
-      <h2 id="simple-modal-title">Contenido</h2>
+      <h2 id='simple-modal-title'>Contenido</h2>
       <WYSIWYG values={{ values, setValues }} />
-      <Button variant="contained" onClick={handleClose('accept')}>Aceptar</Button>
-      <Button variant="contained" color="secondary" onClick={handleClose('cancel')}>Limpiar</Button>
+      <Button variant='contained' onClick={handleClose('accept')}>
+        Aceptar
+      </Button>
+      <Button
+        variant='contained'
+        color='secondary'
+        onClick={handleClose('cancel')}
+      >
+        Limpiar
+      </Button>
     </div>
   );
 
   const deviceEditor = () => {
     if (isMobile) {
-      return <WYSIWYG values={{ values, setValues }} />
+      return <WYSIWYG values={{ values, setValues }} />;
     }
-    return <Button variant="contained" className={classes.buttonEditor} onClick={handleOpen}>Agregar Contenido</Button>
-  }
+    return (
+      <Button
+        variant='contained'
+        className={classes.buttonEditor}
+        onClick={handleOpen}
+        disabled={!values.disableDate}
+      >
+        Agregar Contenido
+      </Button>
+    );
+  };
 
   const handleChange = (name) => (event) => {
     setValues({ ...values, [name]: event.target.value });
@@ -129,12 +166,14 @@ export default function Form() {
   };
 
   const handleQuotation = async () => {
-    const textLength = values.content.length
-    const query = `${values.provider}/${values.category}/${textLength}`
-    const _price = await getPrice(query)
-    console.log(_price);
-  }
+    const textLength = values.content.length;
+    const dayToPublish = dayOfWeek[getDay(values.date)]
+    const _quote = values.prices.find(price => price.length > textLength && price.days.includes(dayToPublish))
+    console.log(_quote)
+    return _quote
+  };
 
+  console.log(values);
   return (
     <Card className={classes.card}>
       <CardContent>
@@ -151,23 +190,39 @@ export default function Form() {
           onChange={handleChange('email')}
           margin='normal'
           required
+          disabled={!values.content}
         />
         <FormControlLabel
-          control={<Checkbox color="primary" checked={values.terms} onChange={handleChangeCB('name')} id='terms' name="terms" />}
-          label="Acepto terminos y condiciones"
+          control={
+            <Checkbox
+              color='primary'
+              checked={values.terms}
+              onChange={handleChangeCB('name')}
+              id='terms'
+              name='terms'
+            />
+          }
+          label='Acepto terminos y condiciones'
         />
-        <Button variant="contained" color='primary' className={classes.button} onClick={handleQuotation}>Cotizar</Button>
+        <Button
+          variant='contained'
+          color='primary'
+          className={classes.button}
+          onClick={handleQuotation}
+        >
+          Cotizar
+        </Button>
         <Modal
           // disablePortal
           open={open}
           onClose={handleClose}
-          aria-labelledby="simple-modal-title"
-          aria-describedby="simple-modal-description"
+          aria-labelledby='simple-modal-title'
+          aria-describedby='simple-modal-description'
         >
           {body}
         </Modal>
         <br />
       </CardContent>
     </Card>
-  )
+  );
 }

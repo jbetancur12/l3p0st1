@@ -55,7 +55,7 @@ export default function Signup() {
     address: '',
     city: '',
     phone: '',
-    doc_id: ''
+    doc_id: '',
   });
 
   const handleChange = (name) => (event) => {
@@ -76,7 +76,7 @@ export default function Signup() {
       phone: values.doc_id || undefined,
       city: values.city || undefined,
       address: values.address || undefined,
-      terms: values.terms || undefined
+      terms: values.terms || undefined,
     };
     create(user).then((data) => {
       if (data.error) {
@@ -180,8 +180,8 @@ export default function Signup() {
             id='terms'
             checked={values.terms}
             onChange={handleChangeCB('terms')}
-            name="terms"
-            color="primary"
+            name='terms'
+            color='primary'
           />
           <br />
           {values.error && (

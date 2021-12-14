@@ -2,7 +2,6 @@ const list = async () => {
   try {
     let response = await fetch('/api/categories/', {
       method: 'GET',
-
     });
     return await response.json();
   } catch (err) {
@@ -11,16 +10,15 @@ const list = async () => {
 };
 
 const getPrice = async (query) => {
-  const ll = 100
+  const ll = 100;
   try {
     let response = await fetch('/api/product/' + query, {
       method: 'GET',
-
     });
     return await response.json();
   } catch (err) {
     console.log(err);
   }
-}
+};
 
-export { list, getPrice }
+export { list, getPrice };
