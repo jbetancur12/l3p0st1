@@ -12,14 +12,17 @@ const listProvidersByCategory = async (id) => {
 const listPrices = async (values) => {
   console.log(values);
   try {
-    let response = await fetch('/api/product/price/' + values.provider + '/' + values.category.name, {
-      method: 'GET',
-    });
+    let response = await fetch(
+      '/api/product/price/' + values.provider + '/' + values.category.name,
+      {
+        method: 'GET',
+      },
+    );
     console.log(response);
     return await response.json();
   } catch (err) {
     console.log(err);
   }
-}
+};
 
 export { listProvidersByCategory, listPrices };

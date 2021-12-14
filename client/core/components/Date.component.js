@@ -2,9 +2,9 @@ import React, { useEffect, useContext } from 'react';
 import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import esLocale from 'date-fns/locale/es';
-import { getDay } from 'date-fns'
+import { getDay } from 'date-fns';
 import { Badge, makeStyles } from '@material-ui/core';
-import format from "date-fns/format";
+import format from 'date-fns/format';
 
 const localeMap = {
   es: esLocale,
@@ -31,31 +31,34 @@ export default function DateComponent(props) {
   const { values, setValues } = props.values;
 
   const handleDateChange = (name) => (event) => {
-    const dayWeek = dayOfWeek[getDay(event)]
+    const dayWeek = dayOfWeek[getDay(event)];
     setValues({ ...values, [name]: event, disableDate: true });
   };
 
-
   useEffect(() => {
-    const days = values.days
+    const days = values.days;
     console.log(days);
+  }, [values]);
 
-  }, [values])
-
-  const renderWrappedWeekDay = (date, selectedDate, dayInCurrentMonth, dayComponent) => {
+  const renderWrappedWeekDay = (
+    date,
+    selectedDate,
+    dayInCurrentMonth,
+    dayComponent,
+  ) => {
     const ss = dayInCurrentMonth && [0, 1, 2].includes(date.getDay());
-    return <div>{ss ? dayComponent : undefined}</div>
-  }
+    return <div>{ss ? dayComponent : undefined}</div>;
+  };
 
   function disableWeekends(date) {
-    const ff = []
+    const ff = [];
     Object.keys(dayOfWeek).forEach(function (key, index) {
       if (values.days.includes(dayOfWeek[key])) {
-        ff.push(index)
-      };
+        ff.push(index);
+      }
     });
 
-    return !ff.includes(date.getDay())
+    return !ff.includes(date.getDay());
     // date.getDay() === 0 || date.getDay() === 6;
   }
 

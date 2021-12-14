@@ -26,10 +26,14 @@ export default function Providers(props) {
   const handleChange = (name) => async (event) => {
     const _prices = await listPrices({ ...values, [name]: event.target.value });
 
-    const days = _prices && _prices.map(price => price.days)
-    const unique_days = [...new Set(days.flat())]
-    setValues({ ...values, [name]: event.target.value, prices: _prices, days: unique_days });
-
+    const days = _prices && _prices.map((price) => price.days);
+    const unique_days = [...new Set(days.flat())];
+    setValues({
+      ...values,
+      [name]: event.target.value,
+      prices: _prices,
+      days: unique_days,
+    });
   };
 
   useEffect(async () => {

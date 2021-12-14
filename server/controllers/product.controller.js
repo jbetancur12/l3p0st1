@@ -23,10 +23,10 @@ const price = async (req, res) => {
       const product = await Product.find({
         $and: [
           {
-            'provider': req.provider[0]._id,
+            provider: req.provider[0]._id,
           },
           {
-            'category': req.category[0]._id,
+            category: req.category[0]._id,
           },
           // {
           //   length: {
@@ -34,23 +34,28 @@ const price = async (req, res) => {
           //   },
           // },
         ],
-      }).select("days price length");
+      }).select('days price length');
 
       // const product = await Product.find({
       //   'category': req.category[0]._id,
       // })
 
-
       // .where("category._id").equals(req.category._id)
       // .where("provider._id").equals(req.provider._id)
       // .where("length").gte(parseFloat(req.params.length))
-      console.log("=>S", product);
+      console.log('=>S', product);
 
       res.json(product);
     }
   } catch (error) {
     return res.status('400').json({
-      error: 'Could not retrieve product with provider: ' + req.provider[0]._id + ' and ' + 'category: ' + req.category[0]._id + '',
+      error:
+        'Could not retrieve product with provider: ' +
+        req.provider[0]._id +
+        ' and ' +
+        'category: ' +
+        req.category[0]._id +
+        '',
     });
   }
 };

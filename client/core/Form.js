@@ -20,7 +20,7 @@ import {
   isBrowser,
   isMobile,
 } from 'react-device-detect';
-import { getDay } from 'date-fns'
+import { getDay } from 'date-fns';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -83,7 +83,6 @@ const dayOfWeek = {
   5: 'viernes',
   6: 'sabado',
 };
-
 
 function getModalStyle() {
   const top = 50 + rand();
@@ -167,10 +166,12 @@ export default function Form() {
 
   const handleQuotation = async () => {
     const textLength = values.content.length;
-    const dayToPublish = dayOfWeek[getDay(values.date)]
-    const _quote = values.prices.find(price => price.length > textLength && price.days.includes(dayToPublish))
-    console.log(_quote)
-    return _quote
+    const dayToPublish = dayOfWeek[getDay(values.date)];
+    const _quote = values.prices.find(
+      (price) => price.length > textLength && price.days.includes(dayToPublish),
+    );
+    console.log(_quote);
+    return _quote;
   };
 
   console.log(values);
