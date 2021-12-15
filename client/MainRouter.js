@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Home from './core/Home';
 import Users from './user/Users';
@@ -8,8 +8,17 @@ import Profile from './user/Profile';
 import EditProfile from './user/EditProfile';
 import PrivateRoute from './auth/PrivateRoute';
 import Menu from './core/Menu';
+import Dashboard from './Dashboard';
 
 const MainRouter = () => {
+  const [path, setPath] = useState('/');
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setPath(window.location.pathname);
+    }
+  }, []);
+
   return (
     <div>
       <Menu />
@@ -18,6 +27,7 @@ const MainRouter = () => {
         <Route path='/users' component={Users} />
         <Route path='/signup' component={Signup} />
         <Route path='/signin' component={Signin} />
+        <Route path='/dashboard' component={Dashboard} />
         <PrivateRoute path='/user/edit/:userId' component={EditProfile} />
         <Route path='/user/:userId' component={Profile} />
       </Switch>

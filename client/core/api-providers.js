@@ -23,4 +23,13 @@ const listPrices = async (values) => {
   }
 };
 
-export { listProvidersByCategory, listPrices };
+const listProviders = async () => {
+  try {
+    let response = await fetch('/api/providers', {
+      method: 'GET',
+    });
+    return await response.json();
+  } catch (error) {}
+};
+
+export { listProvidersByCategory, listPrices, listProviders };

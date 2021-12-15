@@ -28,8 +28,9 @@ const useStyles = makeStyles((theme) => ({
   },
   buttonEditor: {
     width: '90%',
-    background: theme.palette.primary.light,
-    color: '#fff',
+    marginTop: 35,
+    // background: theme.palette.primary.light,
+    // color: '#fff',
   },
   chipContainer: {
     display: 'flex',
@@ -104,7 +105,7 @@ function Editor(props) {
     }
     return (
       <Button
-        variant='contained'
+        variant='outlined'
         className={classes.buttonEditor}
         onClick={handleOpen}
         disabled={!values.disableDate}
