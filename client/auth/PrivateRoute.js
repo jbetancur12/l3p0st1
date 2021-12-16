@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PrivateRoute = ({ component: Component, ...rest }) => {
+const PrivateRoute = ({ layout: Layout, component: Component, ...rest }) => {
   const classes = useStyles();
   const isServer = useIsServer();
 
@@ -40,7 +40,9 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
       {...rest}
       render={(props) =>
         auth.isAuthenticated() ? (
-          <Component {...props} />
+          <Layout {...props}>
+            <Component {...props} />
+          </Layout>
         ) : (
           <Redirect
             to={{

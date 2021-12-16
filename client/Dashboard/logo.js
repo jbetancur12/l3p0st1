@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { styled } from '@material-ui/core/styles';
+import React from 'react';
 
 export const Logo = styled((props) => {
   const { variant, ...other } = props;

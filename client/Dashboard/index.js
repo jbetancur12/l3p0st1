@@ -2,6 +2,7 @@ import { Button, Card, CardContent, TextField } from '@material-ui/core';
 import React, { useState } from 'react';
 import { list } from '../core/api-categories';
 import AsyncSelect from 'react-select/async';
+import { useStyles } from './utils'
 
 function Dashboard() {
   const classes = useStyles();

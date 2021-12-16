@@ -9,6 +9,21 @@ import EditProfile from './user/EditProfile';
 import PrivateRoute from './auth/PrivateRoute';
 import Menu from './core/Menu';
 import Dashboard from './Dashboard';
+import { LayoutOne, LayoutTwo } from './Layouts'
+
+function RouteWrapper({
+  component: Component,
+  layout: Layout,
+  ...rest
+}) {
+  return (
+    <Route {...rest} render={(props) =>
+      <Layout {...props}>
+        <Component {...props} />
+      </Layout>
+    } />
+  );
+}
 
 const MainRouter = () => {
   const [path, setPath] = useState('/');
@@ -21,15 +36,14 @@ const MainRouter = () => {
 
   return (
     <div>
-      <Menu />
       <Switch>
-        <Route exact path='/' component={Home} />
-        <Route path='/users' component={Users} />
-        <Route path='/signup' component={Signup} />
-        <Route path='/signin' component={Signin} />
-        <Route path='/dashboard' component={Dashboard} />
-        <PrivateRoute path='/user/edit/:userId' component={EditProfile} />
-        <Route path='/user/:userId' component={Profile} />
+        <RouteWrapper exact path='/' layout={LayoutOne} component={Home} />
+        <RouteWrapper path='/users' layout={LayoutOne} component={Users} />
+        <RouteWrapper path='/signup' layout={LayoutOne} component={Signup} />
+        <RouteWrapper path='/signin' layout={LayoutOne} component={Signin} />
+        <RouteWrapper path='/dashboard' layout={LayoutTwo} component={Dashboard} />
+        <PrivateRoute path='/user/edit/:userId' layout={LayoutOne} component={EditProfile} />
+        <RouteWrapper path='/user/:userId' layout={LayoutOne} component={Profile} />
       </Switch>
     </div>
   );
