@@ -10,11 +10,12 @@ import PrivateRoute from './auth/PrivateRoute';
 import Menu from './core/Menu';
 // import Dashboard from './Dashboard/Providers/ProviderForm';
 import { LayoutOne, LayoutTwo } from './Layouts';
-import Products from './Dashboard/Products.form';
+// import Products from './Dashboard/Products.form';
 // import Categories from './Dashboard/Categories.form';
 import Customers from './Dashboard/Pages/Customers/Customers.page';
 import Providers from './Dashboard/Pages/Providers/Providers.page';
 import Categories from './Dashboard/Pages/Categories/Categories.page';
+import Products from './Dashboard/Pages/Products/Products.page';
 
 function RouteWrapper({ component: Component, layout: Layout, ...rest }) {
   return (
@@ -45,6 +46,7 @@ const MainRouter = () => {
         <RouteWrapper path='/users' layout={LayoutOne} component={Users} />
         <RouteWrapper path='/signup' layout={LayoutOne} component={Signup} />
         <RouteWrapper path='/signin' layout={LayoutOne} component={Signin} />
+
         <RouteWrapper
           path='/customers'
           layout={LayoutTwo}
@@ -61,7 +63,7 @@ const MainRouter = () => {
           component={Categories}
         />
         <RouteWrapper
-          path='/dashboard'
+          path='/products'
           layout={LayoutTwo}
           component={Products}
         />
