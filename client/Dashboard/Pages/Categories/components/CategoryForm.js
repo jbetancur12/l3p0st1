@@ -1,5 +1,5 @@
 import { Button, Card, CardContent, TextField } from '@material-ui/core';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { list } from '../../../../core/api-categories';
 import AsyncSelect from 'react-select/async';
 import { useStyles } from '../../../utils';
@@ -22,13 +22,24 @@ function Dashboard(props) {
 
   const handleSubmit = async () => {
     try {
-      let response = await fetch('/api/categories/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(values),
-      });
+      let response;
+      if (!props.data) {
+        response = await fetch('/api/categories/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(values),
+        });
+      } else {
+        response = await fetch('/api/category/' + props.data._id, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(values),
+        });
+      }
       if (response.ok) {
         props.handleClose('cancel')();
       }
@@ -60,6 +71,15 @@ function Dashboard(props) {
     }),
   };
 
+  useEffect(() => {
+    if (props.data) {
+      setValues({
+        name: props.data.name
+      })
+    }
+  }, [])
+
+  console.log(values);
   return (
     <Card className={classes.card}>
       <CardContent>
@@ -72,17 +92,21 @@ function Dashboard(props) {
           margin='normal'
           required
         />
+        <br />
+        <br />
         <Button
           variant='contained'
           color='primary'
           className={classes.button}
           onClick={handleSubmit}
         >
-          Crear
+          {props.data ? 'Editar' : 'Crear'}
         </Button>
+        <br />
+        <br />
         <Button
           variant='contained'
-          color='primary'
+          color='secondary'
           className={classes.button}
           onClick={props.handleClose('cancel')}
         >

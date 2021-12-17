@@ -11,13 +11,9 @@ router
 router
   .route('/api/category/:categoryId')
   .get(categoryCtrl.read)
-  .put(categoryCtrl.update);
+  .put(categoryCtrl.update)
+  .delete(categoryCtrl.remove);
 
-// router
-//   .route('/api/categories/:categoryId')
-//   .get(categoryCtrl.read)
-//   .put(categoryCtrl.update)
-//   .delete(categoryCtrl.remove);
 
 router.param('categoryId', categoryCtrl.categoryByID);
 

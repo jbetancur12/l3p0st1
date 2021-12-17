@@ -7,6 +7,7 @@ import {
   Box,
   Card,
   Checkbox,
+  IconButton,
   Table,
   TableBody,
   TableCell,
@@ -15,6 +16,8 @@ import {
   TableRow,
   Typography,
 } from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete'
+import EditIcon from '@material-ui/icons/Edit'
 // import { getInitials } from '../../utils/get-initials';
 
 export const CustomerListResults = ({ customers, ...rest }) => {
@@ -127,6 +130,14 @@ export const CustomerListResults = ({ customers, ...rest }) => {
                     <TableCell>{customer.email}</TableCell>
                     <TableCell>{customer.city}</TableCell>
                     <TableCell>{customer.phone}</TableCell>
+                    <TableCell>
+                      <IconButton aria-label="delete" >
+                        <DeleteIcon />
+                      </IconButton>
+                      <IconButton aria-label="delete" >
+                        <EditIcon />
+                      </IconButton>
+                    </TableCell>
                     {/* <TableCell>
                     {format(customer.createdAt, 'dd/MM/yyyy')}
                   </TableCell> */}

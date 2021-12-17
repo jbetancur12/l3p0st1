@@ -7,6 +7,8 @@ import {
   Box,
   Card,
   Checkbox,
+  IconButton,
+  Modal,
   Table,
   TableBody,
   TableCell,
@@ -15,12 +17,29 @@ import {
   TableRow,
   Typography,
 } from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete'
+import EditIcon from '@material-ui/icons/Edit'
+import CategoryForm from './CategoryForm';
+import { makeStyles } from '@material-ui/styles';
+import { remove } from '../../../../core/api-categories';
 // import { getInitials } from '../../utils/get-initials';
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    '&:hover': {
+      cursor: 'pointer',
+      fontWeight: '600'
+    }
+  }
+}))
+
 export const CategoryListResults = ({ categories, ...rest }) => {
+  const classes = useStyles()
   const [selectedCategoryIds, setSelectedCategoryIds] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
+  const [open, setOpen] = useState(false);
+  const [data, setData] = useState({})
 
   const handleSelectAll = (event) => {
     let newSelectedCategoryIds;
@@ -69,6 +88,20 @@ export const CategoryListResults = ({ categories, ...rest }) => {
     setPage(newPage);
   };
 
+  const handleOpen = (provider) => (event) => {
+    setOpen(true)
+    setData(provider)
+  };
+
+  const handleClose = (action) => () => {
+    if (action === 'accept') {
+      setOpen(false);
+    }
+    if (action === 'cancel') {
+      setOpen(false);
+    }
+  };
+
   return (
     <Card {...rest}>
       <PerfectScrollbar>
@@ -88,6 +121,7 @@ export const CategoryListResults = ({ categories, ...rest }) => {
                   />
                 </TableCell>
                 <TableCell>Name</TableCell>
+                <TableCell></TableCell>
                 {/* <TableCell>Email</TableCell>
                 <TableCell>Phone</TableCell> */}
                 {/* <TableCell>Registration date</TableCell> */}
@@ -118,10 +152,20 @@ export const CategoryListResults = ({ categories, ...rest }) => {
                         {/* <Avatar src={provider.avatarUrl} sx={{ mr: 2 }}>
                         {getInitials(provider.name)}
                       </Avatar> */}
-                        <Typography color='textPrimary' variant='body1'>
+                        <Typography classes={{
+                          root: classes.root
+                        }} color='textPrimary' variant='body1' component="a" >
                           {`${provider.name}`}
                         </Typography>
                       </Box>
+                    </TableCell>
+                    <TableCell>
+                      <IconButton aria-label="delete" onClick={async () => await remove(provider._id)} >
+                        <DeleteIcon />
+                      </IconButton>
+                      <IconButton aria-label="edit" onClick={handleOpen(provider)} >
+                        <EditIcon />
+                      </IconButton>
                     </TableCell>
                     {/* <TableCell>{provider.email}</TableCell>
                   <TableCell>{provider.phone}</TableCell> */}
@@ -133,6 +177,16 @@ export const CategoryListResults = ({ categories, ...rest }) => {
             </TableBody>
           </Table>
         </Box>
+        <Modal
+          // disablePortal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby='simple-modal-title'
+          aria-describedby='simple-modal-description'
+
+        >
+          <CategoryForm data={data} handleClose={handleClose} />
+        </Modal>
       </PerfectScrollbar>
       <TablePagination
         component='div'

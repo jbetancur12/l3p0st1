@@ -2,6 +2,8 @@ import mongoose from 'mongoose';
 
 const Schema = mongoose.Schema;
 
+
+
 const CategorySchema = new Schema({
   name: {
     type: String,
@@ -29,6 +31,10 @@ const CategorySchema = new Schema({
   ],
 
   updated: Date,
+});
+
+CategorySchema.pre('deleteMany', function (next) {
+  this.model('Assignment').deleteOne({ person: person._id }, next);
 });
 
 export default mongoose.model('Category', CategorySchema);

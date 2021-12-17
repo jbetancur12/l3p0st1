@@ -19,13 +19,16 @@ import DownloadIcon from '@material-ui/icons/GetApp';
 import React from 'react';
 import { useTheme } from '@material-ui/styles';
 import Select from 'react-select';
+import { useStyles } from '../../../utils';
 
 export const CustomerListToolbar = (props) => {
-  console.log(props);
+  const classes = useStyles()
   const theme = useTheme();
   const handleChange = (event) => {
     props.setSelectedValue(event.target.value);
   };
+
+
 
   return (
     <Box {...props}>
@@ -81,13 +84,13 @@ export const CustomerListToolbar = (props) => {
                 getOptionValue={(option) => option.value}
                 getOptionLabel={(option) => option.label}
                 // onChange={handleChange('provider')}
-                // className={classes.selector}
+                className={classes.selector}
                 // menuColor='red'
                 // styles={color}
                 isSearchable
                 menuPosition={'fixed'}
                 placeholder='Medio'
-                // isDisabled={disable}
+              // isDisabled={disable}
               />
             </Box>
           </CardContent>
