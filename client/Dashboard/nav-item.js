@@ -17,7 +17,6 @@ export const NavItem = withRouter((props) => {
   const theme = useTheme();
   const { href, icon, title, history, ...others } = props;
   const active = (history, path) => history.location.pathname == path;
-  console.log(active(history, href));
   return (
     <ListItem
       disableGutters
