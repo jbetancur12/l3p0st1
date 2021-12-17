@@ -1,8 +1,8 @@
 import { Box, Container, useTheme } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
-import { listProviders } from '../core/api-providers';
-import { ProviderListToolbar } from './Providers/provider-list-toolbar';
-import { ProviderListResults } from './Providers/Providers-list-results';
+import { listProviders } from '../../../core/api-providers';
+import { ProviderListToolbar } from './components/provider-list-toolbar';
+import { ProviderListResults } from './components/Providers-list-results';
 
 function Providers() {
   const theme = useTheme();

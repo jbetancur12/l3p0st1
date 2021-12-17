@@ -1,8 +1,8 @@
 import { Button, Card, CardContent, TextField } from '@material-ui/core';
 import React, { useState } from 'react';
-import { list } from '../../core/api-categories';
+import { list } from '../../../../core/api-categories';
 import AsyncSelect from 'react-select/async';
-import { useStyles } from '../utils';
+import { useStyles } from '../../../utils';
 
 function Dashboard(props) {
   const classes = useStyles();
@@ -22,7 +22,7 @@ function Dashboard(props) {
 
   const handleSubmit = async () => {
     try {
-      let response = await fetch('/api/providers/', {
+      let response = await fetch('/api/categories/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -73,43 +73,6 @@ function Dashboard(props) {
           onChange={handleChange('name')}
           margin='normal'
           required
-        />
-        <TextField
-          id='email'
-          type='email'
-          label='email'
-          className={classes.textField}
-          value={values.email}
-          onChange={handleChange('email')}
-          margin='normal'
-          required
-        />
-        <TextField
-          id='phone'
-          label='Telefono'
-          className={classes.textField}
-          style={{ marginBottom: '35px' }}
-          value={values.phone}
-          onChange={handleChange('phone')}
-          margin='normal'
-          required
-        />
-        <AsyncSelect
-          id='long-value-select'
-          instanceId='long-value-select'
-          isMulti
-          cacheOptions
-          defaultOptions
-          loadOptions={promiseOptions}
-          getOptionValue={(option) => option._id}
-          getOptionLabel={(option) => option.name}
-          onChange={handleChange('categories')}
-          className={classes.selector}
-          menuColor='red'
-          styles={color}
-          isSearchable
-          menuPosition={'fixed'}
-          placeholder='Categorias'
         />
         <Button
           variant='contained'

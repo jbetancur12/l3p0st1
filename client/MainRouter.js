@@ -12,9 +12,9 @@ import Menu from './core/Menu';
 import { LayoutOne, LayoutTwo } from './Layouts';
 import Products from './Dashboard/Products.form';
 // import Categories from './Dashboard/Categories.form';
-import Customers from './Dashboard/Customers.page';
-import Providers from './Dashboard/Providers.page';
-import Categories from './Dashboard/Categories.page';
+import Customers from './Dashboard/Pages/Customers/Customers.page';
+import Providers from './Dashboard/Pages/Providers/Providers.page';
+import Categories from './Dashboard/Pages/Categories/Categories.page';
 
 function RouteWrapper({ component: Component, layout: Layout, ...rest }) {
   return (

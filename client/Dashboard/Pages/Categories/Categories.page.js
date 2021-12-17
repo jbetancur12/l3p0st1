@@ -1,8 +1,8 @@
 import { Box, Container, useTheme } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
-import { list as listCategories } from '../core/api-categories';
-import { CategoryListToolbar } from './Categories/category-list-toolbar';
-import { CategoryListResults } from './Categories/Categories-list-results';
+import { list as listCategories } from '../../../core/api-categories';
+import { CategoryListToolbar } from './components/category-list-toolbar';
+import { CategoryListResults } from './components/Categories-list-results';
 
 function Categories() {
   const theme = useTheme();

@@ -1,8 +1,8 @@
 import { Box, Container, useTheme } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
-import { list } from '../user/api-user';
-import { CustomerListToolbar } from './Customer-toolbar';
-import { CustomerListResults } from './Customers-list';
+import { list } from '../../../user/api-user';
+import { CustomerListToolbar } from './components/Customer-toolbar';
+import { CustomerListResults } from './components/Customers-list';
 
 function Customers() {
   const theme = useTheme();
