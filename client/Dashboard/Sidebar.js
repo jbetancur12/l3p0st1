@@ -90,10 +90,13 @@ export default function Sidebar() {
             </Link>
           </Box>
         </div>
-        <Divider classes={{
-          root: classes.divider // class name, e.g. `classes-nesting-root-x`
-          // class name, e.g. `classes-nesting-label-x`
-        }} variant='middle' />
+        <Divider
+          classes={{
+            root: classes.divider, // class name, e.g. `classes-nesting-root-x`
+            // class name, e.g. `classes-nesting-label-x`
+          }}
+          variant='middle'
+        />
         <Box flexGrow={1}>
           {items.map((item) => (
             <NavItem

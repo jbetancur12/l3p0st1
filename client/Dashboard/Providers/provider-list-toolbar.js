@@ -16,8 +16,8 @@ import { useTheme } from '@material-ui/styles';
 import ModalButton from './ModalProvider';
 
 export const ProviderListToolbar = (props) => {
-  const [open, setOpen] = useState(false)
-  const theme = useTheme()
+  const [open, setOpen] = useState(false);
+  const theme = useTheme();
 
   return (
     <Box {...props}>
@@ -27,7 +27,6 @@ export const ProviderListToolbar = (props) => {
         justifyContent='space-between'
         flexWrap='wrap'
         margin={theme.spacing(-1, -1)}
-
       >
         <Typography sx={{ m: 1 }} variant='h4'>
           Medios
@@ -46,7 +45,7 @@ export const ProviderListToolbar = (props) => {
       <Box marginTop={theme.spacing(1 * 0.38)}>
         <Card>
           <CardContent>
-            <Box maxWidth={500} >
+            <Box maxWidth={500}>
               <TextField
                 fullWidth
                 InputProps={{
@@ -66,5 +65,5 @@ export const ProviderListToolbar = (props) => {
         </Card>
       </Box>
     </Box>
-  )
+  );
 };

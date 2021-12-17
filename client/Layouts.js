@@ -29,12 +29,7 @@ const LayoutTwo = (props) => {
   return (
     <>
       <DashboardLayoutRoot>
-        <Box
-          display='flex'
-          flex='1 1 auto'
-          flexDirection='column'
-          width='100%'
-        >
+        <Box display='flex' flex='1 1 auto' flexDirection='column' width='100%'>
           {children}
         </Box>
       </DashboardLayoutRoot>

@@ -30,10 +30,8 @@ function Dashboard(props) {
         body: JSON.stringify(values),
       });
       if (response.ok) {
-        props.handleClose('cancel')()
+        props.handleClose('cancel')();
       }
-
-
     } catch (err) {
       console.log(err);
     }
@@ -129,7 +127,6 @@ function Dashboard(props) {
         >
           Cancelar
         </Button>
-
       </CardContent>
     </Card>
   );

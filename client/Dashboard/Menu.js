@@ -17,7 +17,6 @@ import BellIcon from '@material-ui/icons/Notifications';
 import UserCircleIcon from '@material-ui/icons/RadioButtonUnchecked';
 import UsersIcon from '@material-ui/icons/Group';
 
-
 const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
   boxShadow: theme.shadows[3],
@@ -32,76 +31,73 @@ const useStyles = makeStyles((theme) => ({
   },
   iconButton: {
     [theme.breakpoints.up('xs')]: {
-      display: 'inline-flex'
+      display: 'inline-flex',
     },
     [theme.breakpoints.up('lg')]: {
-      display: 'none'
-    }
+      display: 'none',
+    },
   },
   iconButtonRoot: {
-    marginLeft: theme.spacing(1)
+    marginLeft: theme.spacing(1),
   },
   meniIcons: {
-    ml: theme.spacing(1)
+    ml: theme.spacing(1),
   },
   dashboardNavbarRoot: {
     [theme.breakpoints.up('lg')]: {
       left: 280,
-      width: 'calc(100% - 280px)'
+      width: 'calc(100% - 280px)',
     },
-  }
-}))
+  },
+}));
 
 export default function DashboardNavbar(props) {
-  const classes = useStyles()
+  const classes = useStyles();
   const { onSidebarOpen, ...other } = props;
 
   return (
     <>
-      <DashboardNavbarRoot
-        className={classes.dashboardNavbarRoot}
-        {...other}
-      >
-        <Toolbar
-          disableGutters
-          className={classes.toolbar}
-        >
+      <DashboardNavbarRoot className={classes.dashboardNavbarRoot} {...other}>
+        <Toolbar disableGutters className={classes.toolbar}>
           <IconButton
             onClick={onSidebarOpen}
             classes={{
-              root: classes.iconButton
+              root: classes.iconButton,
             }}
           >
             <MenuIcon fontSize='small' />
           </IconButton>
           <Tooltip title='Search'>
-            <IconButton classes={{
-              root: classes.iconButtonRoot
-            }}>
+            <IconButton
+              classes={{
+                root: classes.iconButtonRoot,
+              }}
+            >
               <SearchIcon fontSize='small' />
             </IconButton>
           </Tooltip>
           <Box flexGrow={1} />
           <Tooltip title='Contacts'>
-            <IconButton classes={{
-              root: classes.iconButtonRoot
-            }}>
+            <IconButton
+              classes={{
+                root: classes.iconButtonRoot,
+              }}
+            >
               <UsersIcon fontSize='small' />
             </IconButton>
           </Tooltip>
           <Tooltip title='Notifications'>
-            <IconButton classes={{
-              root: classes.iconButtonRoot
-            }}  >
+            <IconButton
+              classes={{
+                root: classes.iconButtonRoot,
+              }}
+            >
               <Badge badgeContent={4} color='primary' variant='dot'>
                 <BellIcon fontSize='small' />
               </Badge>
             </IconButton>
           </Tooltip>
-          <Avatar
-            src='../assets/images/avatar_1.png'
-          >
-          </Avatar>
+          <Avatar src='../assets/images/avatar_1.png'></Avatar>
         </Toolbar>
       </DashboardNavbarRoot>
     </>

@@ -1,17 +1,17 @@
-import { Box, Container, useTheme } from '@material-ui/core'
-import React, { useEffect, useState } from 'react'
-import { list } from '../user/api-user'
-import { CustomerListToolbar } from './Customer-toolbar'
-import { CustomerListResults } from './Customers-list'
+import { Box, Container, useTheme } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
+import { list } from '../user/api-user';
+import { CustomerListToolbar } from './Customer-toolbar';
+import { CustomerListResults } from './Customers-list';
 
 function Customers() {
-  const theme = useTheme()
-  const [customers, setCustomers] = useState([])
+  const theme = useTheme();
+  const [customers, setCustomers] = useState([]);
   useEffect(async () => {
-    const _users = await list()
+    const _users = await list();
     console.log(_users);
-    setCustomers(_users)
-  }, [])
+    setCustomers(_users);
+  }, []);
   return (
     <>
       <Box
@@ -28,7 +28,7 @@ function Customers() {
         </Container>
       </Box>
     </>
-  )
+  );
 }
 
-export default Customers
+export default Customers;

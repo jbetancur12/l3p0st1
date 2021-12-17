@@ -1,17 +1,17 @@
-import { Box, Container, useTheme } from '@material-ui/core'
-import React, { useEffect, useState } from 'react'
-import { listProviders } from '../core/api-providers'
-import { ProviderListToolbar } from './Providers/provider-list-toolbar'
-import { ProviderListResults } from './Providers/Providers-list-results'
+import { Box, Container, useTheme } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
+import { listProviders } from '../core/api-providers';
+import { ProviderListToolbar } from './Providers/provider-list-toolbar';
+import { ProviderListResults } from './Providers/Providers-list-results';
 
 function Providers() {
-  const theme = useTheme()
-  const [providers, setProviders] = useState([])
+  const theme = useTheme();
+  const [providers, setProviders] = useState([]);
   useEffect(async () => {
-    const _providers = await listProviders()
+    const _providers = await listProviders();
     console.log(_providers);
-    setProviders(_providers)
-  }, [])
+    setProviders(_providers);
+  }, []);
   return (
     <>
       <Box
@@ -28,7 +28,7 @@ function Providers() {
         </Container>
       </Box>
     </>
-  )
+  );
 }
 
-export default Providers
+export default Providers;

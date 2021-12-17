@@ -24,7 +24,7 @@ const config = {
       {
         test: /\.svg$/,
         use: ['@svgr/webpack'],
-      }
+      },
     ],
   },
 };

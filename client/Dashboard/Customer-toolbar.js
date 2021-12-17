@@ -15,7 +15,7 @@ import React from 'react';
 import { useTheme } from '@material-ui/styles';
 
 export const CustomerListToolbar = (props) => {
-  const theme = useTheme()
+  const theme = useTheme();
   return (
     <Box {...props}>
       <Box
@@ -24,7 +24,6 @@ export const CustomerListToolbar = (props) => {
         justifyContent='space-between'
         flexWrap='wrap'
         margin={theme.spacing(-1, -1)}
-
       >
         <Typography sx={{ m: 1 }} variant='h4'>
           Customers
@@ -44,7 +43,7 @@ export const CustomerListToolbar = (props) => {
       <Box marginTop={theme.spacing(1 * 0.38)}>
         <Card>
           <CardContent>
-            <Box maxWidth={500} >
+            <Box maxWidth={500}>
               <TextField
                 fullWidth
                 InputProps={{
@@ -64,5 +63,5 @@ export const CustomerListToolbar = (props) => {
         </Card>
       </Box>
     </Box>
-  )
+  );
 };

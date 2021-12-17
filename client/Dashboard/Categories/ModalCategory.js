@@ -7,7 +7,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import React, { useState } from 'react';
-import ProviderForm from './CategoryForm'
+import ProviderForm from './CategoryForm';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -46,13 +46,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
 function ModalProvider(props) {
   const classes = useStyles();
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
-    setOpen(true)
+    setOpen(true);
   };
 
   const handleClose = (action) => () => {

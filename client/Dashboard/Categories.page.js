@@ -1,17 +1,17 @@
-import { Box, Container, useTheme } from '@material-ui/core'
-import React, { useEffect, useState } from 'react'
-import { list as listCategories } from '../core/api-categories'
-import { CategoryListToolbar } from './Categories/category-list-toolbar'
-import { CategoryListResults } from './Categories/Categories-list-results'
+import { Box, Container, useTheme } from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
+import { list as listCategories } from '../core/api-categories';
+import { CategoryListToolbar } from './Categories/category-list-toolbar';
+import { CategoryListResults } from './Categories/Categories-list-results';
 
 function Categories() {
-  const theme = useTheme()
-  const [categories, setCategories] = useState([])
+  const theme = useTheme();
+  const [categories, setCategories] = useState([]);
   useEffect(async () => {
-    const _categories = await listCategories()
+    const _categories = await listCategories();
     console.log(_categories);
-    setCategories(_categories)
-  }, [])
+    setCategories(_categories);
+  }, []);
   return (
     <>
       <Box
@@ -28,7 +28,7 @@ function Categories() {
         </Container>
       </Box>
     </>
-  )
+  );
 }
 
-export default Categories
+export default Categories;

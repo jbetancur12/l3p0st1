@@ -45,9 +45,21 @@ const MainRouter = () => {
         <RouteWrapper path='/users' layout={LayoutOne} component={Users} />
         <RouteWrapper path='/signup' layout={LayoutOne} component={Signup} />
         <RouteWrapper path='/signin' layout={LayoutOne} component={Signin} />
-        <RouteWrapper path='/customers' layout={LayoutTwo} component={Customers} />
-        <RouteWrapper path='/providers' layout={LayoutTwo} component={Providers} />
-        <RouteWrapper path='/categories' layout={LayoutTwo} component={Categories} />
+        <RouteWrapper
+          path='/customers'
+          layout={LayoutTwo}
+          component={Customers}
+        />
+        <RouteWrapper
+          path='/providers'
+          layout={LayoutTwo}
+          component={Providers}
+        />
+        <RouteWrapper
+          path='/categories'
+          layout={LayoutTwo}
+          component={Categories}
+        />
         <RouteWrapper
           path='/dashboard'
           layout={LayoutTwo}

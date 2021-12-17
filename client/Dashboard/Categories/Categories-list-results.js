@@ -72,7 +72,7 @@ export const CategoryListResults = ({ categories, ...rest }) => {
   return (
     <Card {...rest}>
       <PerfectScrollbar>
-        <Box minWidth={1050} >
+        <Box minWidth={1050}>
           <Table>
             <TableHead>
               <TableRow>
@@ -94,41 +94,42 @@ export const CategoryListResults = ({ categories, ...rest }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {categories.slice(page * limit, page * limit + limit).map((provider) => (
-                <TableRow
-                  hover
-                  key={provider._id}
-                  selected={selectedCategoryIds.indexOf(provider._id) !== -1}
-                >
-                  <TableCell padding='checkbox'>
-                    <Checkbox
-                      checked={selectedCategoryIds.indexOf(provider._id) !== -1}
-                      onChange={(event) => handleSelectOne(event, provider._id)}
-                      value='true'
-                    />
-                  </TableCell>
-                  <TableCell>
-                    <Box
-
-                      alignItems='center'
-                      display='flex'
-
-                    >
-                      {/* <Avatar src={provider.avatarUrl} sx={{ mr: 2 }}>
+              {categories
+                .slice(page * limit, page * limit + limit)
+                .map((provider) => (
+                  <TableRow
+                    hover
+                    key={provider._id}
+                    selected={selectedCategoryIds.indexOf(provider._id) !== -1}
+                  >
+                    <TableCell padding='checkbox'>
+                      <Checkbox
+                        checked={
+                          selectedCategoryIds.indexOf(provider._id) !== -1
+                        }
+                        onChange={(event) =>
+                          handleSelectOne(event, provider._id)
+                        }
+                        value='true'
+                      />
+                    </TableCell>
+                    <TableCell>
+                      <Box alignItems='center' display='flex'>
+                        {/* <Avatar src={provider.avatarUrl} sx={{ mr: 2 }}>
                         {getInitials(provider.name)}
                       </Avatar> */}
-                      <Typography color='textPrimary' variant='body1'>
-                        {`${provider.name}`}
-                      </Typography>
-                    </Box>
-                  </TableCell>
-                  {/* <TableCell>{provider.email}</TableCell>
+                        <Typography color='textPrimary' variant='body1'>
+                          {`${provider.name}`}
+                        </Typography>
+                      </Box>
+                    </TableCell>
+                    {/* <TableCell>{provider.email}</TableCell>
                   <TableCell>{provider.phone}</TableCell> */}
-                  {/* <TableCell>
+                    {/* <TableCell>
                     {format(provider.createdAt, 'dd/MM/yyyy')}
                   </TableCell> */}
-                </TableRow>
-              ))}
+                  </TableRow>
+                ))}
             </TableBody>
           </Table>
         </Box>
