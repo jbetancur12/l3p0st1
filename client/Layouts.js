@@ -2,9 +2,8 @@ import { Box } from '@material-ui/core';
 import { styled } from '@material-ui/core/styles';
 import React, { useState } from 'react';
 import Menu from './core/Menu';
-import MenuDashboard from './Dashboard/Menu.js'
-import DashboardSidebar from './Dashboard/Sidebar'
-
+import MenuDashboard from './Dashboard/Menu.js';
+import DashboardSidebar from './Dashboard/Sidebar';
 
 const DashboardLayoutRoot = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -31,12 +30,10 @@ const LayoutTwo = (props) => {
     <>
       <DashboardLayoutRoot>
         <Box
-          sx={{
-            display: 'flex',
-            flex: '1 1 auto',
-            flexDirection: 'column',
-            width: '100%',
-          }}
+          display='flex'
+          flex='1 1 auto'
+          flexDirection='column'
+          width='100%'
         >
           {children}
         </Box>

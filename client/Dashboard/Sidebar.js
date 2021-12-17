@@ -1,10 +1,12 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
   Box,
   Button,
   Divider,
   Drawer,
+  makeStyles,
+  SvgIcon,
   Typography,
   useMediaQuery,
 } from '@material-ui/core';
@@ -15,8 +17,22 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 import GroupIcon from '@material-ui/icons/Group';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import PersonIcon from '@material-ui/icons/Person';
-import { useTheme } from '@material-ui/styles';
+import { useTheme } from '@material-ui/core/styles';
+import NoteIcon from '@material-ui/icons/Note';
+import CategoryIcon from '@material-ui/icons/Category';
 
+const useStyles = makeStyles((theme) => ({
+  drawerPape: {
+    backgroundColor: '#111827',
+    color: '#FFFFFF',
+    width: 280,
+  },
+  divider: {
+    background: '#2D3748',
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3),
+  },
+}));
 
 const items = [
   {
@@ -24,26 +40,36 @@ const items = [
     icon: <DashboardIcon fontSize='small' />,
     title: 'Dashboard',
   },
-  {
-    href: '/providers',
-    icon: <GroupIcon fontSize='small' />,
-    title: 'Customers',
-  },
+  // {
+  //   href: '/providers',
+  //   icon: <GroupIcon fontSize='small' />,
+  //   title: 'Customers',
+  // },
   {
     href: '/products',
     icon: <ShoppingCartIcon fontSize='small' />,
     title: 'Products',
   },
   {
-    href: '/categories',
+    href: '/customers',
     icon: <PersonIcon fontSize='small' />,
-    title: 'Account',
+    title: 'Customers',
   },
-
+  {
+    href: '/providers',
+    icon: <NoteIcon />,
+    title: 'Medios',
+  },
+  {
+    href: '/categories',
+    icon: <CategoryIcon fontSize='small' />,
+    title: 'Categorias',
+  },
 ];
 
 export default function Sidebar() {
-  const theme = useTheme()
+  const classes = useStyles();
+  const theme = useTheme();
   const lgUp = useMediaQuery((theme) => theme.breakpoints.up('lg'), {
     defaultMatches: true,
     noSsr: false,
@@ -51,33 +77,24 @@ export default function Sidebar() {
 
   const content = (
     <>
-      <Box
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          height: '100%',
-        }}
-      >
+      <Box display='flex' flexDirection='column' height='100%'>
         <div>
-          <Box style={{ p: 3 }}>
-            <Link to='/' >
+          <Box padding={theme.spacing(3, 3)}>
+            <Link to='/'>
               <Logo
                 style={{
                   height: 42,
                   width: 42,
                 }}
               />
-
             </Link>
           </Box>
         </div>
-        <Divider
-          style={{
-            borderColor: '#2D3748',
-            my: 3,
-          }}
-        />
-        <Box style={{ flexGrow: 1 }}>
+        <Divider classes={{
+          root: classes.divider // class name, e.g. `classes-nesting-root-x`
+          // class name, e.g. `classes-nesting-label-x`
+        }} variant='middle' />
+        <Box flexGrow={1}>
           {items.map((item) => (
             <NavItem
               key={item.title}
@@ -98,11 +115,7 @@ export default function Sidebar() {
         anchor='left'
         open
         PaperProps={{
-          style: {
-
-            color: '#FFFFFF',
-            width: 280,
-          },
+          className: classes.drawerPape,
         }}
         variant='permanent'
       >
@@ -117,10 +130,7 @@ export default function Sidebar() {
       onClose={onClose}
       open={open}
       PaperProps={{
-        style: {
-          color: '#FFFFFF',
-          width: 280,
-        },
+        className: classes.drawerPape,
       }}
       style={{ zIndex: (theme) => theme.zIndex.appBar + 100 }}
       variant='temporary'

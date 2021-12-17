@@ -1,14 +1,12 @@
 import { Button, Card, CardContent, TextField } from '@material-ui/core';
 import React, { useState } from 'react';
-import { list } from '../core/api-categories';
+import { list } from '../../core/api-categories';
 import AsyncSelect from 'react-select/async';
-import { useStyles } from './utils'
+import { useStyles } from '../utils';
 
-function Dashboard() {
+function Dashboard(props) {
   const classes = useStyles();
-  const [values, setValues] = useState({
-    provider: '',
-  });
+  const [values, setValues] = useState({});
 
   const ff = (arr) => {
     return arr.map((a) => a._id);
@@ -31,7 +29,11 @@ function Dashboard() {
         },
         body: JSON.stringify(values),
       });
-      return await response.json();
+      if (response.ok) {
+        props.handleClose('cancel')()
+      }
+
+
     } catch (err) {
       console.log(err);
     }
@@ -95,6 +97,8 @@ function Dashboard() {
           required
         />
         <AsyncSelect
+          id='long-value-select'
+          instanceId='long-value-select'
           isMulti
           cacheOptions
           defaultOptions
@@ -117,6 +121,15 @@ function Dashboard() {
         >
           Crear
         </Button>
+        <Button
+          variant='contained'
+          color='primary'
+          className={classes.button}
+          onClick={props.handleClose('cancel')}
+        >
+          Cancelar
+        </Button>
+
       </CardContent>
     </Card>
   );

@@ -5,9 +5,9 @@ const create = async (req, res) => {
   const category = new Category(req.body);
   try {
     await category.save();
-    const provider_id = await Provider.findById(req.body.provider);
-    provider_id.categories.push(category);
-    await provider_id.save();
+    // const provider_id = await Provider.findById(req.body.provider);
+    // provider_id.categories.push(category);
+    // await provider_id.save();
     return res.status(200).json({
       message: 'Successfully created!',
     });
