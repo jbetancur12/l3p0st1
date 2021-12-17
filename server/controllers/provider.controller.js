@@ -3,9 +3,15 @@ import Category from '../models/category.model';
 import errorHandler from '../helpers/dbErrorHandler';
 
 const create = async (req, res) => {
-  const provider = new Provider(req.body);
+  const _provider = new Provider(req.body);
   try {
-    await provider.save();
+    if (req.body.categories) {
+      await Category.updateMany(
+        { _id: _provider.categories },
+        { $push: { providers: _provider._id } },
+      );
+    }
+    await _provider.save();
     return res.status(200).json({
       message: 'Successfully created!',
     });
