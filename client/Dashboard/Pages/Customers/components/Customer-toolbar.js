@@ -7,15 +7,26 @@ import {
   InputAdornment,
   SvgIcon,
   Typography,
+  Radio,
+  FormControl,
+  FormLabel,
+  RadioGroup,
+  FormControlLabel,
 } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import UploadIcon from '@material-ui/icons/Publish';
 import DownloadIcon from '@material-ui/icons/GetApp';
 import React from 'react';
 import { useTheme } from '@material-ui/styles';
+import Select from 'react-select';
 
 export const CustomerListToolbar = (props) => {
+  console.log(props);
   const theme = useTheme();
+  const handleChange = (event) => {
+    props.setSelectedValue(event.target.value);
+  };
+
   return (
     <Box {...props}>
       <Box
@@ -45,6 +56,7 @@ export const CustomerListToolbar = (props) => {
           <CardContent>
             <Box maxWidth={500}>
               <TextField
+                onChange={props.search}
                 fullWidth
                 InputProps={{
                   startAdornment: (
@@ -57,6 +69,25 @@ export const CustomerListToolbar = (props) => {
                 }}
                 placeholder='Search customer'
                 variant='outlined'
+              />
+            </Box>
+            <Box maxWidth={300}>
+              <Typography variant='subtitle1' component='h2'>
+                Buscar por:
+              </Typography>
+              <br />
+              <Select
+                options={props.filterOptions}
+                getOptionValue={(option) => option.value}
+                getOptionLabel={(option) => option.label}
+                // onChange={handleChange('provider')}
+                // className={classes.selector}
+                // menuColor='red'
+                // styles={color}
+                isSearchable
+                menuPosition={'fixed'}
+                placeholder='Medio'
+                // isDisabled={disable}
               />
             </Box>
           </CardContent>

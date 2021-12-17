@@ -53,14 +53,13 @@ const ff = (arr) => {
 function Products(props) {
   const classes = useStyles();
   const [values, setValues] = useState({});
-  const [disable, setDisable] = useState(true)
-  const [providerOptions, setProviderOptions] = useState([])
+  const [disable, setDisable] = useState(true);
+  const [providerOptions, setProviderOptions] = useState([]);
   const [catProv, setCatProv] = useState({});
 
   const categoriesOptions = async () => {
     return await list();
   };
-
 
   const handleChange = (name) => (event) => {
     switch (name) {
@@ -101,8 +100,9 @@ function Products(props) {
       }
       return day.charAt(0).toUpperCase();
     });
-    return `${catProv.category} ${catProv.provider} ${values.length
-      } caracteres ${daysSufix.join('-')}`;
+    return `${catProv.category} ${catProv.provider} ${
+      values.length
+    } caracteres ${daysSufix.join('-')}`;
   };
 
   const color = {
@@ -126,12 +126,11 @@ function Products(props) {
   useEffect(async () => {
     if (values.category) {
       const providers = await listProvidersByCategory(values.category);
-      setDisable(false)
-      setProviderOptions(providers)
+      setDisable(false);
+      setProviderOptions(providers);
       console.log(providers);
-
     }
-  }, [values.category])
+  }, [values.category]);
 
   const handleSubmit = async () => {
     const newValues = { ...values, name: setName(values, catProv) };

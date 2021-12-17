@@ -11,6 +11,7 @@ function Products() {
     const _products = await listProducts();
     setProducts(_products);
   }, []);
+
   return (
     <>
       <Box

@@ -104,9 +104,7 @@ export const ProductListResults = ({ product, ...rest }) => {
                   >
                     <TableCell padding='checkbox'>
                       <Checkbox
-                        checked={
-                          selectedProductIds.indexOf(product._id) !== -1
-                        }
+                        checked={selectedProductIds.indexOf(product._id) !== -1}
                         onChange={(event) =>
                           handleSelectOne(event, product._id)
                         }

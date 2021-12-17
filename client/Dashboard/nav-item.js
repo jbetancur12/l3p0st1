@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
 export const NavItem = withRouter((props) => {
   const classes = useStyles();
   const theme = useTheme();
-  const { href, icon, title, history, ...others } = props;
+  const { href, icon, title, staticContext, history, ...others } = props;
   const active = (history, path) => history.location.pathname == path;
   return (
     <ListItem
@@ -27,33 +27,33 @@ export const NavItem = withRouter((props) => {
       }}
       {...others}
     >
-      <Link to={href}>
-        <Button
-          component='a'
-          startIcon={icon}
-          disableRipple
-          style={{
-            backgroundColor: active(history, href) && 'rgba(255,255,255, 0.08)',
-            borderRadius: theme.spacing(1),
-            color: active(history, href) ? '#10B981' : '#D1D5DB',
-            fontWeight: active(history, href) && '600',
-            justifyContent: 'flex-start',
-            paddingLeft: theme.spacing(3),
-            paddingRigth: theme.spacing(3),
-            textAlign: 'left',
-            textTransform: 'none',
-            width: '100%',
-            '& .MuiButton-startIcon': {
-              color: active(history, href) ? '#10B981' : '#9CA3AF',
-            },
-            '&:hover': {
-              backgroundColor: 'rgba(255,255,255, 0.08)',
-            },
-          }}
-        >
+      <Button
+        // component='a'
+        startIcon={icon}
+        disableRipple
+        style={{
+          backgroundColor: active(history, href) && 'rgba(255,255,255, 0.08)',
+          borderRadius: theme.spacing(1),
+          color: active(history, href) ? '#10B981' : '#D1D5DB',
+          fontWeight: active(history, href) && '600',
+          justifyContent: 'flex-start',
+          paddingLeft: theme.spacing(3),
+          paddingRigth: theme.spacing(3),
+          textAlign: 'left',
+          textTransform: 'none',
+          width: '100%',
+          '& .MuiButtonStartIcon': {
+            color: active(history, href) ? '#10B981' : '#9CA3AF',
+          },
+          '&:hover': {
+            backgroundColor: 'rgba(255,255,255, 0.08)',
+          },
+        }}
+      >
+        <Link style={{ color: 'inherit' }} to={href} {...{ ...others }}>
           <Box flexGrow={1}>{title}</Box>
-        </Button>
-      </Link>
+        </Link>
+      </Button>
     </ListItem>
   );
 });
