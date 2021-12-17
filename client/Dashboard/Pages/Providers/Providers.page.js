@@ -9,7 +9,6 @@ function Providers() {
   const [providers, setProviders] = useState([]);
   useEffect(async () => {
     const _providers = await listProviders();
-    console.log(_providers);
     setProviders(_providers);
   }, []);
   return (

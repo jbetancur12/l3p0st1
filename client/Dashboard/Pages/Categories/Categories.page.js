@@ -9,7 +9,6 @@ function Categories() {
   const [categories, setCategories] = useState([]);
   useEffect(async () => {
     const _categories = await listCategories();
-    console.log(_categories);
     setCategories(_categories);
   }, []);
   return (

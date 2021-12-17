@@ -9,7 +9,6 @@ function Customers() {
   const [customers, setCustomers] = useState([]);
   useEffect(async () => {
     const _users = await list();
-    console.log(_users);
     setCustomers(_users);
   }, []);
   return (

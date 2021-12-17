@@ -10,8 +10,6 @@ function Categories() {
     setValues({ ...values, [name]: event.target.value });
   };
 
-  console.log(values);
-
   const handleSubmit = async () => {
     try {
       let response = await fetch('/api/categories/', {

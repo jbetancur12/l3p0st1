@@ -41,8 +41,6 @@ function Dashboard(props) {
     return await list();
   };
 
-  console.log(values);
-
   const color = {
     control: (styles) => ({
       ...styles,

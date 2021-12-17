@@ -54,8 +54,6 @@ function Products() {
   const [values, setValues] = useState({});
   const [catProv, setCatProv] = useState({});
 
-  console.log(values);
-
   const categoriesOptions = async () => {
     return await list();
   };
