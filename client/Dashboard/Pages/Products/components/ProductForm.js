@@ -5,14 +5,15 @@ import {
   InputAdornment,
   TextField,
 } from '@material-ui/core';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useStyles } from '../../../utils';
 import { list } from '../../../../core/api-categories';
-import { listProviders } from '../../../../core/api-providers';
+import { listProvidersByCategory } from '../../../../core/api-providers';
 import AsyncSelect from 'react-select/async';
 import Select from 'react-select';
 import NumberFormat from 'react-number-format';
 import { dayOfWeek } from '../../../../helpers/dates';
+import { set } from 'lodash';
 
 function NumberFormatCustom(props) {
   const { inputRef, onChange, ...other } = props;
@@ -49,17 +50,17 @@ const ff = (arr) => {
   return arr.map((a) => a.value);
 };
 
-function Products() {
+function Products(props) {
   const classes = useStyles();
   const [values, setValues] = useState({});
+  const [disable, setDisable] = useState(true)
+  const [providerOptions, setProviderOptions] = useState([])
   const [catProv, setCatProv] = useState({});
 
   const categoriesOptions = async () => {
     return await list();
   };
-  const providersOptions = async () => {
-    return await listProviders();
-  };
+
 
   const handleChange = (name) => (event) => {
     switch (name) {
@@ -122,6 +123,16 @@ function Products() {
     }),
   };
 
+  useEffect(async () => {
+    if (values.category) {
+      const providers = await listProvidersByCategory(values.category);
+      setDisable(false)
+      setProviderOptions(providers)
+      console.log(providers);
+
+    }
+  }, [values.category])
+
   const handleSubmit = async () => {
     const newValues = { ...values, name: setName(values, catProv) };
     try {
@@ -155,10 +166,8 @@ function Products() {
           menuPosition={'fixed'}
           placeholder='Categoria'
         />
-        <AsyncSelect
-          cacheOptions
-          defaultOptions
-          loadOptions={providersOptions}
+        <Select
+          options={providerOptions.providers}
           getOptionValue={(option) => option._id}
           getOptionLabel={(option) => option.name}
           onChange={handleChange('provider')}
@@ -168,6 +177,7 @@ function Products() {
           isSearchable
           menuPosition={'fixed'}
           placeholder='Medio'
+          isDisabled={disable}
         />
         <Select
           isMulti
@@ -221,6 +231,14 @@ function Products() {
           onClick={handleSubmit}
         >
           Crear
+        </Button>
+        <Button
+          variant='contained'
+          color='primary'
+          className={classes.button}
+          onClick={props.handleClose('cancel')}
+        >
+          Cancelar
         </Button>
       </CardContent>
     </Card>
