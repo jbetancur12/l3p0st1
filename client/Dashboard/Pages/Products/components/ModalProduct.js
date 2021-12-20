@@ -59,7 +59,6 @@ function ModalProduct(props) {
       setOpen(false);
     }
     if (action === 'cancel') {
-      console.log('object');
       setOpen(false);
     }
   };

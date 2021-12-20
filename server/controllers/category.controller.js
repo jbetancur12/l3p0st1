@@ -10,6 +10,7 @@ const create = async (req, res) => {
     // await provider_id.save();
     return res.status(200).json({
       message: 'Successfully created!',
+      payload: category,
     });
   } catch (err) {
     return res.status(400).json({
@@ -83,12 +84,16 @@ const update = async (req, res) => {
       {
         $set: req.body,
       },
+      { new: true },
       (error, data) => {
         if (error) {
           return next(error);
           console.log(error);
         } else {
-          res.status(200).json({ message: 'Category updated successfully !' });
+          res.status(200).json({
+            message: 'Category updated successfully !',
+            payload: data,
+          });
         }
       },
     );
@@ -105,10 +110,27 @@ const remove = (req, res, next) => {
       return next(error);
     } else {
       res.status(200).json({
-        msg: data
-      })
+        msg: data,
+      });
     }
-  })
-}
+  });
+};
 
-export default { create, categoryByID, list, read, categoryName, update, remove };
+const schema = (req, res) => {
+  console.log('=CX ', Object.keys(Category.schema.paths.name));
+  res.status(200).json({
+    message: 'Category updated successfully !',
+    payload: Category.schema,
+  });
+};
+
+export default {
+  create,
+  categoryByID,
+  list,
+  read,
+  categoryName,
+  update,
+  remove,
+  schema,
+};

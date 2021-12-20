@@ -1,13 +1,14 @@
 import { Button, Card, CardContent, TextField } from '@material-ui/core';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { list } from '../../../../core/api-categories';
 import AsyncSelect from 'react-select/async';
 import { useStyles } from '../../../utils';
+import { GlobalContext } from '../../../../context/GlobalContext';
 
 function Dashboard(props) {
   const classes = useStyles();
   const [values, setValues] = useState({});
-
+  const { addCategory, updateCategory } = useContext(GlobalContext);
   const ff = (arr) => {
     return arr.map((a) => a._id);
   };
@@ -31,6 +32,9 @@ function Dashboard(props) {
           },
           body: JSON.stringify(values),
         });
+
+        const category = await response.json();
+        addCategory(category.payload);
       } else {
         response = await fetch('/api/category/' + props.data._id, {
           method: 'PUT',
@@ -39,6 +43,9 @@ function Dashboard(props) {
           },
           body: JSON.stringify(values),
         });
+
+        const category = await response.json();
+        updateCategory(category.payload);
       }
       if (response.ok) {
         props.handleClose('cancel')();
@@ -74,12 +81,11 @@ function Dashboard(props) {
   useEffect(() => {
     if (props.data) {
       setValues({
-        name: props.data.name
-      })
+        name: props.data.name,
+      });
     }
-  }, [])
+  }, []);
 
-  console.log(values);
   return (
     <Card className={classes.card}>
       <CardContent>

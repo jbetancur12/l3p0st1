@@ -128,7 +128,6 @@ function Products(props) {
       const providers = await listProvidersByCategory(values.category);
       setDisable(false);
       setProviderOptions(providers);
-      console.log(providers);
     }
   }, [values.category]);
 

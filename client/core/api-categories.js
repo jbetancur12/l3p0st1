@@ -10,7 +10,6 @@ const list = async () => {
 };
 
 const getPrice = async (query) => {
-
   try {
     let response = await fetch('/api/product/' + query, {
       method: 'GET',
@@ -31,7 +30,5 @@ const remove = async (id) => {
     console.log(err);
   }
 };
-
-
 
 export { list, getPrice, remove };
