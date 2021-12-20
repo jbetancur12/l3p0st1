@@ -6,7 +6,7 @@ import { ListResults } from '../SharedComponents/ListTable';
 import { remove } from '../../../user/api-user';
 import { GlobalContext } from '../../../context/GlobalContext';
 import CategoryForm from './components/CategoryForm';
-import CategoryFormList from './components/CategoryForm';
+import CategoryFormList from './components/CategoryFormList';
 
 function Categories() {
   const theme = useTheme();
@@ -15,6 +15,7 @@ function Categories() {
   const [selectedValue, setSelectedValue] = React.useState('name');
   const [open, setOpen] = useState(false);
   const [data, setData] = useState({});
+  const [data2, setData2] = useState({});
   const { deleteCategory } = useContext(GlobalContext);
 
   useEffect(async () => {
@@ -59,6 +60,9 @@ function Categories() {
       setOpen(false);
     }
   };
+  const onClickCell = (list) => {
+    setData2(list)
+  }
 
   return (
     <>
@@ -87,6 +91,8 @@ function Categories() {
                 open={open}
                 data={data}
                 form={<CategoryForm data={data} handleClose={handleClose} />}
+                form2={<CategoryFormList data={data2} />}
+                onClickCell={onClickCell}
               />
             ) : (
               <div>Loading</div>
