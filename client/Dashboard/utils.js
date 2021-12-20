@@ -35,6 +35,16 @@ const useStyles = makeStyles((theme) => ({
   selector: {
     fontFamily: 'Roboto',
   },
+  nested: {
+    paddingLeft: theme.spacing(4),
+    flexDirection: 'column',
+    alignItems: 'baseline'
+  },
+  root: {
+    width: '100%',
+    maxWidth: 360,
+    backgroundColor: theme.palette.background.paper,
+  },
 }));
 
 const ITEM_HEIGHT = 48;
