@@ -19,7 +19,9 @@ function Providers() {
   useEffect(async () => {
     const _providers = await listProviders();
     loadProviders(_providers);
+    setProvidersCopy(_providers);
   }, []);
+
 
   const requestSearch = (searchedVal) => {
     const filteredRows = providersCopy.filter((row) => {
