@@ -1,15 +1,19 @@
 import { Button, Card, CardContent, TextField } from '@material-ui/core';
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { list } from '../../../../core/api-categories';
 import AsyncSelect from 'react-select/async';
 import { useStyles } from '../../../utils';
+import { GlobalContext } from '../../../../context/ProviderContext';
 
 function Dashboard(props) {
   const classes = useStyles();
   const [values, setValues] = useState({});
-
+  const { addProvider, updateProvider } = useContext(GlobalContext);
   const ff = (arr) => {
-    return arr.map((a) => a._id);
+    console.log(arr);
+    return arr.map((a) => {
+      return { _id: a._id, name: a.name };
+    });
   };
 
   const handleChange = (name) => (event) => {
@@ -22,13 +26,33 @@ function Dashboard(props) {
 
   const handleSubmit = async () => {
     try {
-      let response = await fetch('/api/providers/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(values),
-      });
+      let response;
+      if (!props.data) {
+        response = await fetch('/api/providers/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(values),
+        });
+
+        const provider = await response.json();
+        addProvider(provider.payload);
+      } else {
+        response = await fetch('/api/provider/' + props.data._id, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            ...values,
+            categories: values.categories.map((category) => category._id),
+          }),
+        });
+
+        const provider = await response.json();
+        updateProvider(provider.payload);
+      }
       if (response.ok) {
         props.handleClose('cancel')();
       }
@@ -60,6 +84,13 @@ function Dashboard(props) {
     }),
   };
 
+  useEffect(() => {
+    console.log(props.data);
+    if (props.data) {
+      setValues(props.data);
+    }
+  }, []);
+  console.log(values);
   return (
     <Card className={classes.card}>
       <CardContent>
@@ -108,6 +139,7 @@ function Dashboard(props) {
           isSearchable
           menuPosition={'fixed'}
           placeholder='Categorias'
+          value={values.categories}
         />
         <Button
           variant='contained'
@@ -115,11 +147,13 @@ function Dashboard(props) {
           className={classes.button}
           onClick={handleSubmit}
         >
-          Crear
+          {props.data ? 'Editar' : 'Crear'}
         </Button>
+        <br />
+        <br />
         <Button
           variant='contained'
-          color='primary'
+          color='secondary'
           className={classes.button}
           onClick={props.handleClose('cancel')}
         >

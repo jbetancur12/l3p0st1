@@ -61,8 +61,8 @@ function Categories() {
     }
   };
   const onClickCell = (list) => {
-    setData2(list)
-  }
+    setData2(list);
+  };
 
   return (
     <>

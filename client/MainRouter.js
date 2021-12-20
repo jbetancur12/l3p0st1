@@ -17,6 +17,7 @@ import Providers from './Dashboard/Pages/Providers/Providers.page';
 import Categories from './Dashboard/Pages/Categories/Categories.page';
 import Products from './Dashboard/Pages/Products/Products.page';
 import { ContextProvider } from './context/GlobalContext';
+import { ContextProvider as ProviderContext } from './context/ProviderContext';
 
 function RouteWrapper({ component: Component, layout: Layout, ...rest }) {
   return (
@@ -53,18 +54,20 @@ const MainRouter = () => {
           layout={LayoutTwo}
           component={Customers}
         />
-        <RouteWrapper
-          path='/providers'
-          layout={LayoutTwo}
-          component={Providers}
-        />
-        <ContextProvider>
-          <RouteWrapper
-            path='/categories'
-            layout={LayoutTwo}
-            component={Categories}
-          />
-        </ContextProvider>
+        <ProviderContext>
+          <ContextProvider>
+            <RouteWrapper
+              path='/providers'
+              layout={LayoutTwo}
+              component={Providers}
+            />
+            <RouteWrapper
+              path='/categories'
+              layout={LayoutTwo}
+              component={Categories}
+            />
+          </ContextProvider>
+        </ProviderContext>
         <RouteWrapper
           path='/products'
           layout={LayoutTwo}

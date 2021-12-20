@@ -14,6 +14,7 @@ const create = async (req, res) => {
     await _provider.save();
     return res.status(200).json({
       message: 'Successfully created!',
+      payload: _provider,
     });
   } catch (err) {
     return res.status(400).json({
@@ -98,9 +99,13 @@ const providersByCategory = async (req, res) => {
 
 const update = async (req, res) => {
   try {
-    const _provider = await Provider.findByIdAndUpdate(req.provider._id, {
-      $set: req.body,
-    });
+    const _provider = await Provider.findByIdAndUpdate(
+      req.provider._id,
+      {
+        $set: req.body,
+      },
+      { new: true },
+    );
 
     if (req.body.categories) {
       await Category.updateMany(
@@ -111,6 +116,7 @@ const update = async (req, res) => {
 
     return res.status(200).json({
       message: 'Provider Successfully Updated!',
+      payload: _provider,
     });
   } catch (error) {
     return res.status('400').json({
