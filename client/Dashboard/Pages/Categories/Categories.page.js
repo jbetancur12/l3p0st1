@@ -42,7 +42,7 @@ function Categories() {
   ];
 
   const handleRemove = (category) => async () => {
-    await remove(id);
+    await remove(category._id);
     deleteCategory(category._id);
   };
 
