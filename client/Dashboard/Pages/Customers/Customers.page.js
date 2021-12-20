@@ -1,4 +1,11 @@
-import { Box, Container, useTheme } from '@material-ui/core';
+import {
+  Box,
+  CircularProgress,
+  Container,
+  makeStyles,
+  Typography,
+  useTheme,
+} from '@material-ui/core';
 import React, { useEffect, useState, useContext } from 'react';
 import { list } from '../../../user/api-user';
 import { CustomerListToolbar } from '../SharedComponents/ListToolbar';
@@ -7,9 +14,19 @@ import { remove } from '../../../user/api-user';
 import { GlobalContext } from '../../../context/GlobalContext';
 import CustomerForm from './components/CustomerForm';
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    justifyContent: 'center',
+    display: 'flex',
+    padding: '100px',
+  },
+}));
+
 function Customers() {
   const theme = useTheme();
+  const classes = useStyles();
   const [customers, setCustomers] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [customersCopy, setCustomersCopy] = useState([]);
   const [selectedValue, setSelectedValue] = React.useState('name');
   const [open, setOpen] = useState(false);
@@ -20,6 +37,7 @@ function Customers() {
     const _users = await list();
     setCustomers(_users);
     setCustomersCopy(_users);
+    if (_users) setLoading(false);
   }, []);
 
   const requestSearch = (searchedVal) => {
@@ -72,6 +90,23 @@ function Customers() {
     }
   };
 
+  const loadingState = () => {
+    if (loading) {
+      return (
+        <div className={classes.root}>
+          <CircularProgress />
+        </div>
+      );
+    }
+    return (
+      <div className={classes.root}>
+        <Typography variant='body1' component='h2'>
+          No hay Resultados 😅
+        </Typography>
+      </div>
+    );
+  };
+
   return (
     <>
       <Box
@@ -100,7 +135,7 @@ function Customers() {
                 form={<CustomerForm data={data} handleClose={handleClose} />}
               />
             ) : (
-              <div>Loading</div>
+              loadingState()
             )}
           </Box>
         </Container>

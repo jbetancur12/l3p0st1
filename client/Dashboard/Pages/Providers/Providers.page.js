@@ -22,7 +22,6 @@ function Providers() {
     setProvidersCopy(_providers);
   }, []);
 
-
   const requestSearch = (searchedVal) => {
     const filteredRows = providersCopy.filter((row) => {
       return row[selectedValue]
