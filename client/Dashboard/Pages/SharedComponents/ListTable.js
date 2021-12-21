@@ -137,7 +137,7 @@ export const ListResults = ({
                   </TableCell>
                   {cells.map((cell, idx) => (
                     <TableCell onClick={onClickCell(list)} key={cell.value}>
-                      {idx === 0 ? (<Link to={+ list._id}>
+                      {idx === 0 ? (<Link to={cellLink + list._id}>
                         {list[cell.value]}
                       </Link>) : list[cell.value]}
                     </TableCell>
