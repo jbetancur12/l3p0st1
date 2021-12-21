@@ -130,6 +130,7 @@ function Products() {
                 form={<ProductForm data={data} handleClose={handleClose} />}
                 // form2={<CategoryFormList data={data2} />}
                 clickcell={onClickCell}
+                cellLink='/product/'
               />
             ) : (
               loadingState()

@@ -86,7 +86,10 @@ const create = async (req, res) => {
 const read = async (req, res) => {
   try {
     const product_id = req.product;
-    const product = await Product.findById(product_id).populate('provider');
+    const product = await Product.findById(product_id).populate(
+      'provider category',
+      'name',
+    );
     res.json(product);
   } catch (error) {
     return res.status('400').json({
@@ -139,7 +142,7 @@ const productByID = async (req, res, next, id) => {
 };
 
 const remove = (req, res, next) => {
-  Category.findByIdAndRemove(req.product._id, (error, data) => {
+  Product.findByIdAndRemove(req.product._id, (error, data) => {
     if (error) {
       return next(error);
     } else {

@@ -1,9 +1,16 @@
-import { Box, CircularProgress, Container, makeStyles, Typography, useTheme } from '@material-ui/core';
+import {
+  Box,
+  CircularProgress,
+  Container,
+  makeStyles,
+  Typography,
+  useTheme,
+} from '@material-ui/core';
 import React, { useEffect, useState, useContext } from 'react';
-import { list as listCategories } from '../../../core/api-categories';
+import { list as listCategories, remove } from '../../../core/api-categories';
 import { CustomerListToolbar } from '../SharedComponents/ListToolbar';
 import { ListResults } from '../SharedComponents/ListTable';
-import { remove } from '../../../user/api-user';
+
 import { GlobalContext } from '../../../context/GlobalContext';
 import CategoryForm from './components/CategoryForm';
 import CategoryFormList from './components/CategoryFormList';
@@ -123,10 +130,13 @@ function Categories() {
                 open={open}
                 data={data}
                 form={<CategoryForm data={data} handleClose={handleClose} />}
-                form2={<CategoryFormList data={data2} />}
+                // form2={<CategoryFormList data={data2} />}
                 clickcell={onClickCell}
+                cellLink='/category/'
               />
-            ) : loadingState()}
+            ) : (
+              loadingState()
+            )}
           </Box>
         </Container>
       </Box>

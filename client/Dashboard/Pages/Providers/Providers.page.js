@@ -1,10 +1,18 @@
-import { Box, CircularProgress, Container, makeStyles, Typography, useTheme } from '@material-ui/core';
+import {
+  Box,
+  CircularProgress,
+  Container,
+  makeStyles,
+  Typography,
+  useTheme,
+} from '@material-ui/core';
 import React, { useEffect, useState, useContext } from 'react';
 import { listProviders, remove } from '../../../core/api-providers';
 import { CustomerListToolbar } from '../SharedComponents/ListToolbar';
 import { ListResults } from '../SharedComponents/ListTable';
 import { GlobalContext } from '../../../context/ProviderContext';
 import ProviderForm from './components/ProviderForm';
+import { Link, Redirect } from 'react-router-dom';
 // import ProviderFormList from './components/ProviderFormList';
 
 const useStyles = makeStyles((theme) => ({
@@ -21,7 +29,8 @@ const useStyles = makeStyles((theme) => ({
 function Providers() {
   const theme = useTheme();
   const classes = useStyles();
-  const { providers, loadProviders, deleteProvider } = useContext(GlobalContext);
+  const { providers, loadProviders, deleteProvider } =
+    useContext(GlobalContext);
   const [providersCopy, setProvidersCopy] = useState([]);
   const [selectedValue, setSelectedValue] = React.useState('name');
   const [open, setOpen] = useState(false);
@@ -76,7 +85,15 @@ function Providers() {
     }
   };
   const onClickCell = (list) => {
-    setData2(list);
+    console.log(list);
+    return (
+      <Redirect
+        push
+        to={{
+          pathname: '/provider' + list._id,
+        }}
+      />
+    );
   };
 
   const loadingState = () => {
@@ -125,8 +142,11 @@ function Providers() {
                 form={<ProviderForm data={data} handleClose={handleClose} />}
                 // form2={<CategoryFormList data={data2} />}
                 clickcell={onClickCell}
+                cellLink='/provider/'
               />
-            ) : loadingState()}
+            ) : (
+              loadingState()
+            )}
           </Box>
         </Container>
       </Box>

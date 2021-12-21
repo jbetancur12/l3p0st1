@@ -13,7 +13,7 @@ router
   .route('/api/product/:productId')
   .get(productCtrl.read)
   .put(productCtrl.update)
-  .delete(categoryCtrl.remove);
+  .delete(productCtrl.remove);
 
 router
   .route('/api/product/price/:providerName/:categoryName')

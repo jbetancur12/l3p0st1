@@ -14,8 +14,10 @@ import { LayoutOne, LayoutTwo } from './Layouts';
 // import Categories from './Dashboard/Categories.form';
 import Customers from './Dashboard/Pages/Customers/Customers.page';
 import Providers from './Dashboard/Pages/Providers/Providers.page';
+import Provider from './Dashboard/Pages/Providers/components/Provider';
 import Categories from './Dashboard/Pages/Categories/Categories.page';
 import Products from './Dashboard/Pages/Products/Products.page';
+import Product from './Dashboard/Pages/Products/components/Product';
 import { ContextProvider } from './context/GlobalContext';
 import { ContextProvider as ProviderContext } from './context/ProviderContext';
 import { ContextProvider as ProductContext } from './context/ProductContext';
@@ -81,7 +83,17 @@ const MainRouter = () => {
                 component={Providers}
               />
               <RouteWrapper
+                path='/provider/:id'
+                layout={LayoutTwo}
+                component={Provider}
+              />
+              <RouteWrapper
                 path='/categories'
+                layout={LayoutTwo}
+                component={Categories}
+              />
+              <RouteWrapper
+                path='/category/:id'
                 layout={LayoutTwo}
                 component={Categories}
               />
@@ -89,6 +101,11 @@ const MainRouter = () => {
                 path='/products'
                 layout={LayoutTwo}
                 component={Products}
+              />
+              <RouteWrapper
+                path='/product/:id'
+                layout={LayoutTwo}
+                component={Product}
               />
               <PrivateRoute
                 path='/user/edit/:userId'

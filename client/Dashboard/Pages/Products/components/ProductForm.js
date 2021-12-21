@@ -58,7 +58,7 @@ function Products(props) {
   const [providerOptions, setProvidersOptions] = useState([]);
   const [catProv, setCatProv] = useState({});
   const { addProduct, updateProduct } = useContext(GlobalContext);
-  const [daysSelected, setDaysSelected] = useState([])
+  const [daysSelected, setDaysSelected] = useState([]);
 
   const categoriesOptions = async () => {
     return await list();
@@ -72,7 +72,7 @@ function Products(props) {
         setCatProv({ ...catProv, [name]: event.name });
         break;
       case 'days':
-        setDaysSelected(event)
+        setDaysSelected(event);
         setValues({ ...values, [name]: ff(event) });
         break;
       case 'length':
@@ -104,8 +104,9 @@ function Products(props) {
       }
       return day.charAt(0).toUpperCase();
     });
-    return `${catProv.category} ${catProv.provider} ${values.length
-      } caracteres ${daysSufix.join('-')}`;
+    return `${catProv.category} ${catProv.provider} ${
+      values.length
+    } caracteres ${daysSufix.join('-')}`;
   };
 
   const color = {
@@ -127,12 +128,11 @@ function Products(props) {
   };
 
   useEffect(async () => {
-    console.log(props.data);
     if (props.data) {
       setValues(props.data);
     }
     if (values.category) {
-      const id = values.category._id ? values.category._id : values.category
+      const id = values.category._id ? values.category._id : values.category;
       const providers = await listProvidersByCategory(id);
       setDisable(false);
       setProvidersOptions(providers);
@@ -141,7 +141,6 @@ function Products(props) {
 
   const handleSubmit = async () => {
     const newValues = { ...values, name: setName(values, catProv) };
-
 
     try {
       let response;
@@ -178,7 +177,7 @@ function Products(props) {
       console.log(err);
     }
   };
-  console.log(daysSelected);
+
   // console.log(event);
 
   return (
@@ -223,17 +222,17 @@ function Products(props) {
           styles={color}
           menuPosition={'fixed'}
           placeholder='Dias'
-        // value={values.days}
-        // getOptionValue={(option) => {
-        //   if (props.data) {
-        //     return option
-        //   } return option.value
-        // }}
-        // getOptionLabel={(option) => {
-        //   if (props.data) {
-        //     return option.charAt(0).toUpperCase() + option.slice(1)
-        //   } return option.label
-        // }}
+          // value={values.days}
+          // getOptionValue={(option) => {
+          //   if (props.data) {
+          //     return option
+          //   } return option.value
+          // }}
+          // getOptionLabel={(option) => {
+          //   if (props.data) {
+          //     return option.charAt(0).toUpperCase() + option.slice(1)
+          //   } return option.label
+          // }}
         />
 
         <TextField

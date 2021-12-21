@@ -20,4 +20,15 @@ const remove = async (id) => {
   }
 };
 
-export { listProducts, remove };
+const read = async (id) => {
+  try {
+    let response = await fetch('/api/product/' + id, {
+      method: 'GET',
+    });
+    return await response.json();
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export { listProducts, remove, read };

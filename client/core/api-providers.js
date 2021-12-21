@@ -29,7 +29,7 @@ const listProviders = async () => {
       method: 'GET',
     });
     return await response.json();
-  } catch (error) { }
+  } catch (error) {}
 };
 
 const remove = async (id) => {
@@ -43,4 +43,15 @@ const remove = async (id) => {
   }
 };
 
-export { listProvidersByCategory, listPrices, listProviders, remove };
+const read = async (id) => {
+  try {
+    let response = await fetch('/api/provider/' + id, {
+      method: 'GET',
+    });
+    return await response.json();
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export { listProvidersByCategory, listPrices, listProviders, remove, read };

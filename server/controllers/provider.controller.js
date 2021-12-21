@@ -71,7 +71,10 @@ const providerName = async (req, res, next, name) => {
 const read = async (req, res) => {
   try {
     const provider_id = req.provider;
-    const provider = await Provider.findById(provider_id).populate('products');
+    const provider = await Provider.findById(provider_id).populate(
+      'products categories',
+      'name',
+    );
     res.json(provider);
   } catch (error) {
     return res.status('400').json({
@@ -119,7 +122,9 @@ const update = async (req, res) => {
         },
       );
     }
-    const _providerPopulated = await _provider.populate('categories', 'name').execPopulate();
+    const _providerPopulated = await _provider
+      .populate('categories', 'name')
+      .execPopulate();
 
     return res.status(200).json({
       message: 'Provider Successfully Updated!',
@@ -152,5 +157,5 @@ export default {
   providerName,
   providersByCategory,
   update,
-  remove
+  remove,
 };
