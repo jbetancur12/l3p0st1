@@ -1,4 +1,4 @@
-import { Box, Container, useTheme } from '@material-ui/core';
+import { Box, CircularProgress, Container, makeStyles, Typography, useTheme } from '@material-ui/core';
 import React, { useEffect, useState, useContext } from 'react';
 import { listProviders, remove } from '../../../core/api-providers';
 import { CustomerListToolbar } from '../SharedComponents/ListToolbar';
@@ -7,19 +7,33 @@ import { GlobalContext } from '../../../context/ProviderContext';
 import ProviderForm from './components/ProviderForm';
 // import ProviderFormList from './components/ProviderFormList';
 
+const useStyles = makeStyles((theme) => ({
+  root: {
+    justifyContent: 'center',
+    display: 'flex',
+    padding: '100px',
+  },
+  skeleton: {
+    width: 300,
+  },
+}));
+
 function Providers() {
   const theme = useTheme();
+  const classes = useStyles();
   const { providers, loadProviders, deleteProvider } = useContext(GlobalContext);
   const [providersCopy, setProvidersCopy] = useState([]);
   const [selectedValue, setSelectedValue] = React.useState('name');
   const [open, setOpen] = useState(false);
   const [data, setData] = useState({});
   const [data2, setData2] = useState({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(async () => {
     const _providers = await listProviders();
     loadProviders(_providers);
     setProvidersCopy(_providers);
+    if (_providers) setLoading(false);
   }, []);
 
   const requestSearch = (searchedVal) => {
@@ -65,6 +79,23 @@ function Providers() {
     setData2(list);
   };
 
+  const loadingState = () => {
+    if (loading) {
+      return (
+        <div className={classes.root}>
+          <CircularProgress />
+        </div>
+      );
+    }
+    return (
+      <div className={classes.root}>
+        <Typography variant='body1' component='h2'>
+          No hay Resultados 😅
+        </Typography>
+      </div>
+    );
+  };
+
   return (
     <>
       <Box
@@ -95,9 +126,7 @@ function Providers() {
                 // form2={<CategoryFormList data={data2} />}
                 clickcell={onClickCell}
               />
-            ) : (
-              <div>Loading</div>
-            )}
+            ) : loadingState()}
           </Box>
         </Container>
       </Box>
