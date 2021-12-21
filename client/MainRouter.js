@@ -18,6 +18,7 @@ import Categories from './Dashboard/Pages/Categories/Categories.page';
 import Products from './Dashboard/Pages/Products/Products.page';
 import { ContextProvider } from './context/GlobalContext';
 import { ContextProvider as ProviderContext } from './context/ProviderContext';
+import { ContextProvider as ProductContext } from './context/ProductContext';
 
 function RouteWrapper({ component: Component, layout: Layout, ...rest }) {
   return (
@@ -43,57 +44,66 @@ const MainRouter = () => {
 
   return (
     <div>
-      <Switch>
-        <RouteWrapper exact path='/' layout={LayoutOne} component={Home} />
-        <RouteWrapper path='/users' layout={LayoutOne} component={Users} />
-        <RouteWrapper path='/signup' layout={LayoutOne} component={Signup} />
-        <RouteWrapper path='/signin' layout={LayoutOne} component={Signin} />
-
-        <RouteWrapper
-          path='/customers'
-          layout={LayoutTwo}
-          component={Customers}
-        />
+      <ProductContext>
         <ProviderContext>
           <ContextProvider>
-            <RouteWrapper
-              path='/providers'
-              layout={LayoutTwo}
-              component={Providers}
-            />
-            <RouteWrapper
-              path='/categories'
-              layout={LayoutTwo}
-              component={Categories}
-            />
+            <Switch>
+              <RouteWrapper
+                exact
+                path='/'
+                layout={LayoutOne}
+                component={Home}
+              />
+              <RouteWrapper
+                path='/users'
+                layout={LayoutOne}
+                component={Users}
+              />
+              <RouteWrapper
+                path='/signup'
+                layout={LayoutOne}
+                component={Signup}
+              />
+              <RouteWrapper
+                path='/signin'
+                layout={LayoutOne}
+                component={Signin}
+              />
+
+              <RouteWrapper
+                path='/customers'
+                layout={LayoutTwo}
+                component={Customers}
+              />
+              <RouteWrapper
+                path='/providers'
+                layout={LayoutTwo}
+                component={Providers}
+              />
+              <RouteWrapper
+                path='/categories'
+                layout={LayoutTwo}
+                component={Categories}
+              />
+              <RouteWrapper
+                path='/products'
+                layout={LayoutTwo}
+                component={Products}
+              />
+              <PrivateRoute
+                path='/user/edit/:userId'
+                layout={LayoutOne}
+                component={EditProfile}
+              />
+              <RouteWrapper
+                path='/user/:userId'
+                layout={LayoutOne}
+                component={Profile}
+              />
+            </Switch>
           </ContextProvider>
         </ProviderContext>
-        <RouteWrapper
-          path='/products'
-          layout={LayoutTwo}
-          component={Products}
-        />
-        {/* <RouteWrapper
-          path='/products'
-          layout={LayoutTwo}
-          component={Categories}
-        /> */}
-        {/* <RouteWrapper
-          path='/categories'
-          layout={LayoutTwo}
-          component={Dashboard}
-        /> */}
-        <PrivateRoute
-          path='/user/edit/:userId'
-          layout={LayoutOne}
-          component={EditProfile}
-        />
-        <RouteWrapper
-          path='/user/:userId'
-          layout={LayoutOne}
-          component={Profile}
-        />
-      </Switch>
+      </ProductContext>
     </div>
   );
 };

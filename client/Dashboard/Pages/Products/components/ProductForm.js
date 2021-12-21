@@ -5,7 +5,7 @@ import {
   InputAdornment,
   TextField,
 } from '@material-ui/core';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useStyles } from '../../../utils';
 import { list } from '../../../../core/api-categories';
 import { listProvidersByCategory } from '../../../../core/api-providers';
@@ -13,6 +13,7 @@ import AsyncSelect from 'react-select/async';
 import Select from 'react-select';
 import NumberFormat from 'react-number-format';
 import { dayOfWeek } from '../../../../helpers/dates';
+import { GlobalContext } from '../../../../context/ProductContext';
 import { set } from 'lodash';
 
 function NumberFormatCustom(props) {
@@ -54,8 +55,9 @@ function Products(props) {
   const classes = useStyles();
   const [values, setValues] = useState({});
   const [disable, setDisable] = useState(true);
-  const [providerOptions, setProviderOptions] = useState([]);
+  const [providerOptions, setProvidersOptions] = useState([]);
   const [catProv, setCatProv] = useState({});
+  const { addProduct, updateProduct } = useContext(GlobalContext);
 
   const categoriesOptions = async () => {
     return await list();
@@ -124,24 +126,53 @@ function Products(props) {
   };
 
   useEffect(async () => {
+    if (props.data) {
+      setValues(props.data);
+    }
     if (values.category) {
       const providers = await listProvidersByCategory(values.category);
+      console.log(providers);
       setDisable(false);
-      setProviderOptions(providers);
+      setProvidersOptions(providers);
     }
   }, [values.category]);
 
   const handleSubmit = async () => {
     const newValues = { ...values, name: setName(values, catProv) };
+
+    console.log(newValues);
+
     try {
-      let response = await fetch('/api/products/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newValues),
-      });
-      return await response.json();
+      let response;
+      if (!props.data) {
+        response = await fetch('/api/products/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(newValues),
+        });
+
+        const product = await response.json();
+        addProduct(product.payload);
+      } else {
+        response = await fetch('/api/product/' + props.data._id, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            ...values,
+            categories: values.categories.map((category) => category._id),
+          }),
+        });
+
+        const provider = await response.json();
+        updateProduct(provider.payload);
+      }
+      if (response.ok) {
+        props.handleClose('cancel')();
+      }
     } catch (err) {
       console.log(err);
     }
@@ -228,11 +259,13 @@ function Products(props) {
           className={classes.button}
           onClick={handleSubmit}
         >
-          Crear
+          {props.data ? 'Editar' : 'Crear'}
         </Button>
+        <br />
+        <br />
         <Button
           variant='contained'
-          color='primary'
+          color='secondary'
           className={classes.button}
           onClick={props.handleClose('cancel')}
         >

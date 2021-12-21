@@ -46,7 +46,7 @@ export default function Providers(props) {
       <InputLabel id='provider-label'>Medio</InputLabel>
       <Select
         labelId='provider-label'
-        id='provider'
+        instanceid='provider'
         value={values.provider}
         onChange={handleChange('provider')}
         disabled={!values.category.name}

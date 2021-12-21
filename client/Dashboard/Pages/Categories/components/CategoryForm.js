@@ -90,7 +90,7 @@ function Dashboard(props) {
     <Card className={classes.card}>
       <CardContent>
         <TextField
-          id='name'
+          instanceId='name'
           label='Nombre'
           className={classes.textField}
           value={values.name}

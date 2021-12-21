@@ -12,13 +12,13 @@ router.route('/api/products').get(productCtrl.list).post(productCtrl.create);
 router
   .route('/api/product/:productId')
   .get(productCtrl.read)
-  .put(productCtrl.update);
+  .put(productCtrl.update)
+  .delete(categoryCtrl.remove);
 
 router
   .route('/api/product/price/:providerName/:categoryName')
   .get(productCtrl.price);
 // .put(categoryCtrl.update)
-// .delete(categoryCtrl.remove);
 
 //router.param('categoryId', categoryCtrl.categoryByID);
 //router.param('providerId', providerCtrl.providerByID);

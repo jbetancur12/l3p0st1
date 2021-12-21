@@ -6,7 +6,7 @@ import { countBy } from 'lodash';
 
 const list = async (req, res) => {
   try {
-    let products = await Product.find()
+    let products = await Product.find({})
       .populate('provider', 'name')
       .populate('category', 'name');
     res.json(products);
@@ -74,6 +74,7 @@ const create = async (req, res) => {
 
     return res.status(200).json({
       message: 'Successfully created!',
+      payload: product,
     });
   } catch (err) {
     return res.status(400).json({
@@ -101,12 +102,15 @@ const update = async (req, res) => {
       {
         $set: req.body,
       },
+      { new: true },
       (error, data) => {
         if (error) {
           return next(error);
           console.log(error);
         } else {
-          res.status(200).json({ message: 'Product updated successfully !' });
+          res
+            .status(200)
+            .json({ message: 'Product updated successfully !', payload: data });
         }
       },
     );
@@ -134,4 +138,16 @@ const productByID = async (req, res, next, id) => {
   }
 };
 
-export default { create, read, productByID, list, price, update };
+const remove = (req, res, next) => {
+  Category.findByIdAndRemove(req.product._id, (error, data) => {
+    if (error) {
+      return next(error);
+    } else {
+      res.status(200).json({
+        msg: data,
+      });
+    }
+  });
+};
+
+export default { create, read, productByID, list, price, update, remove };

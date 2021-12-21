@@ -38,7 +38,7 @@ export default function Products(props) {
       <InputLabel id='category-label'>Producto</InputLabel>
       <Select
         labelId='category-label'
-        id='category'
+        instanceid='category'
         value={values.category.name}
         onChange={handleChange('category')}
       >

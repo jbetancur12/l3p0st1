@@ -87,13 +87,13 @@ function Providers() {
               <ListResults
                 list={providers}
                 cells={cells}
-                onEdit={handleOpen}
-                onRemove={handleRemove}
+                edit={handleOpen}
+                remove={handleRemove}
                 open={open}
                 data={data}
                 form={<ProviderForm data={data} handleClose={handleClose} />}
                 // form2={<CategoryFormList data={data2} />}
-                onClickCell={onClickCell}
+                clickcell={onClickCell}
               />
             ) : (
               <div>Loading</div>

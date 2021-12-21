@@ -51,6 +51,7 @@ function Dashboard(props) {
         });
 
         const provider = await response.json();
+        console.log(provider);
         updateProvider(provider.payload);
       }
       if (response.ok) {

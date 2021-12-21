@@ -8,7 +8,7 @@ const create = async (req, res) => {
     if (req.body.categories) {
       await Category.updateMany(
         { _id: _provider.categories },
-        { $push: { providers: _provider._id } },
+        { $addToSet: { providers: _provider._id } },
       );
     }
     await _provider.save();
@@ -110,7 +110,13 @@ const update = async (req, res) => {
     if (req.body.categories) {
       await Category.updateMany(
         { _id: _provider.categories },
-        { $push: { providers: _provider._id } },
+
+        // { $push: { providers: _provider._id } },
+        {
+          $addToSet: {
+            providers: _provider._id,
+          },
+        },
       );
     }
 

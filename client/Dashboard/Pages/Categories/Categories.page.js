@@ -79,6 +79,7 @@ function Categories() {
             setSelectedValue={setSelectedValue}
             filterOptions={filterOptions}
             title='Categoria'
+            id='xxx'
             form={<CategoryForm />}
           />
           <Box marginTop={theme.spacing(1 * 0.38)}>
@@ -86,13 +87,13 @@ function Categories() {
               <ListResults
                 list={categories}
                 cells={cells}
-                onEdit={handleOpen}
-                onRemove={handleRemove}
+                edit={handleOpen}
+                remove={handleRemove}
                 open={open}
                 data={data}
                 form={<CategoryForm data={data} handleClose={handleClose} />}
                 form2={<CategoryFormList data={data2} />}
-                onClickCell={onClickCell}
+                clickcell={onClickCell}
               />
             ) : (
               <div>Loading</div>

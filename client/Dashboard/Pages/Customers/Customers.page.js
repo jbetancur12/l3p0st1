@@ -128,8 +128,8 @@ function Customers() {
               <ListResults
                 list={customers}
                 cells={cells}
-                onEdit={handleOpen}
-                onRemove={handleRemove}
+                edit={handleOpen}
+                remove={handleRemove}
                 open={open}
                 data={data}
                 form={<CustomerForm data={data} handleClose={handleClose} />}
