@@ -58,6 +58,7 @@ function Products(props) {
   const [providerOptions, setProvidersOptions] = useState([]);
   const [catProv, setCatProv] = useState({});
   const { addProduct, updateProduct } = useContext(GlobalContext);
+  const [daysSelected, setDaysSelected] = useState([])
 
   const categoriesOptions = async () => {
     return await list();
@@ -67,10 +68,11 @@ function Products(props) {
     switch (name) {
       case 'category':
       case 'provider':
-        setValues({ ...values, [name]: event._id });
+        setValues({ ...values, [name]: { _id: event._id, name: event.name } });
         setCatProv({ ...catProv, [name]: event.name });
         break;
       case 'days':
+        setDaysSelected(event)
         setValues({ ...values, [name]: ff(event) });
         break;
       case 'length':
@@ -102,9 +104,8 @@ function Products(props) {
       }
       return day.charAt(0).toUpperCase();
     });
-    return `${catProv.category} ${catProv.provider} ${
-      values.length
-    } caracteres ${daysSufix.join('-')}`;
+    return `${catProv.category} ${catProv.provider} ${values.length
+      } caracteres ${daysSufix.join('-')}`;
   };
 
   const color = {
@@ -126,12 +127,13 @@ function Products(props) {
   };
 
   useEffect(async () => {
+    console.log(props.data);
     if (props.data) {
       setValues(props.data);
     }
     if (values.category) {
-      const providers = await listProvidersByCategory(values.category);
-      console.log(providers);
+      const id = values.category._id ? values.category._id : values.category
+      const providers = await listProvidersByCategory(id);
       setDisable(false);
       setProvidersOptions(providers);
     }
@@ -140,7 +142,6 @@ function Products(props) {
   const handleSubmit = async () => {
     const newValues = { ...values, name: setName(values, catProv) };
 
-    console.log(newValues);
 
     try {
       let response;
@@ -177,6 +178,8 @@ function Products(props) {
       console.log(err);
     }
   };
+  console.log(daysSelected);
+  // console.log(event);
 
   return (
     <Card className={classes.card}>
@@ -194,6 +197,7 @@ function Products(props) {
           isSearchable
           menuPosition={'fixed'}
           placeholder='Categoria'
+          value={[values.category]}
         />
         <Select
           options={providerOptions.providers}
@@ -207,6 +211,7 @@ function Products(props) {
           menuPosition={'fixed'}
           placeholder='Medio'
           isDisabled={disable}
+          value={[values.provider]}
         />
         <Select
           isMulti
@@ -218,6 +223,17 @@ function Products(props) {
           styles={color}
           menuPosition={'fixed'}
           placeholder='Dias'
+        // value={values.days}
+        // getOptionValue={(option) => {
+        //   if (props.data) {
+        //     return option
+        //   } return option.value
+        // }}
+        // getOptionLabel={(option) => {
+        //   if (props.data) {
+        //     return option.charAt(0).toUpperCase() + option.slice(1)
+        //   } return option.label
+        // }}
         />
 
         <TextField

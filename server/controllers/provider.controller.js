@@ -119,16 +119,29 @@ const update = async (req, res) => {
         },
       );
     }
+    const _providerPopulated = await _provider.populate('categories', 'name').execPopulate();
 
     return res.status(200).json({
       message: 'Provider Successfully Updated!',
-      payload: _provider,
+      payload: _providerPopulated,
     });
   } catch (error) {
     return res.status('400').json({
       error: 'Could not retrieve category',
     });
   }
+};
+
+const remove = (req, res, next) => {
+  Provider.findByIdAndRemove(req.provider._id, (error, data) => {
+    if (error) {
+      return next(error);
+    } else {
+      res.status(200).json({
+        msg: data,
+      });
+    }
+  });
 };
 
 export default {
@@ -139,4 +152,5 @@ export default {
   providerName,
   providersByCategory,
   update,
+  remove
 };

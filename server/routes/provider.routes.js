@@ -13,7 +13,8 @@ router
 router
   .route('/api/provider/:providerId')
   .get(providerCtrl.read)
-  .put(providerCtrl.update);
+  .put(providerCtrl.update)
+  .delete(providerCtrl.remove)
 
 // router
 //   .route('/api/categories/:providerId')

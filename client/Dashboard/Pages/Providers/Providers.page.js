@@ -1,6 +1,6 @@
 import { Box, Container, useTheme } from '@material-ui/core';
 import React, { useEffect, useState, useContext } from 'react';
-import { listProviders } from '../../../core/api-providers';
+import { listProviders, remove } from '../../../core/api-providers';
 import { CustomerListToolbar } from '../SharedComponents/ListToolbar';
 import { ListResults } from '../SharedComponents/ListTable';
 import { GlobalContext } from '../../../context/ProviderContext';
@@ -9,7 +9,7 @@ import ProviderForm from './components/ProviderForm';
 
 function Providers() {
   const theme = useTheme();
-  const { providers, loadProviders } = useContext(GlobalContext);
+  const { providers, loadProviders, deleteProvider } = useContext(GlobalContext);
   const [providersCopy, setProvidersCopy] = useState([]);
   const [selectedValue, setSelectedValue] = React.useState('name');
   const [open, setOpen] = useState(false);
@@ -45,7 +45,7 @@ function Providers() {
 
   const handleRemove = (provider) => async () => {
     await remove(provider._id);
-    deletProvider(provider._id);
+    deleteProvider(provider._id);
   };
 
   const handleOpen = (provider) => () => {
