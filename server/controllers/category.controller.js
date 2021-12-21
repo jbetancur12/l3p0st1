@@ -68,7 +68,7 @@ const read = async (req, res) => {
   try {
     const category_id = req.category;
     const category = await Category.findById(category_id).populate(
-      'products providers',
+      'products providers', 'name'
     );
     res.json(category);
   } catch (error) {

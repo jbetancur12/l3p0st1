@@ -16,6 +16,7 @@ import Customers from './Dashboard/Pages/Customers/Customers.page';
 import Providers from './Dashboard/Pages/Providers/Providers.page';
 import Provider from './Dashboard/Pages/Providers/components/Provider';
 import Categories from './Dashboard/Pages/Categories/Categories.page';
+import Category from './Dashboard/Pages/Categories/components/Category';
 import Products from './Dashboard/Pages/Products/Products.page';
 import Product from './Dashboard/Pages/Products/components/Product';
 import { ContextProvider } from './context/GlobalContext';
@@ -95,7 +96,7 @@ const MainRouter = () => {
               <RouteWrapper
                 path='/category/:id'
                 layout={LayoutTwo}
-                component={Categories}
+                component={Category}
               />
               <RouteWrapper
                 path='/products'

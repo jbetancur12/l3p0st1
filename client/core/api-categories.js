@@ -31,4 +31,15 @@ const remove = async (id) => {
   }
 };
 
-export { list, getPrice, remove };
+const read = async (id) => {
+  try {
+    let response = await fetch('/api/category/' + id, {
+      method: 'GET',
+    });
+    return await response.json();
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export { list, getPrice, remove, read };
