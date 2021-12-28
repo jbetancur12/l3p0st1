@@ -73,37 +73,37 @@ const MainRouter = () => {
                 component={Signin}
               />
 
-              <RouteWrapper
+              <PrivateRoute
                 path='/customers'
                 layout={LayoutTwo}
                 component={Customers}
               />
-              <RouteWrapper
+              <PrivateRoute
                 path='/providers'
                 layout={LayoutTwo}
                 component={Providers}
               />
-              <RouteWrapper
+              <PrivateRoute
                 path='/provider/:id'
                 layout={LayoutTwo}
                 component={Provider}
               />
-              <RouteWrapper
+              <PrivateRoute
                 path='/categories'
                 layout={LayoutTwo}
                 component={Categories}
               />
-              <RouteWrapper
+              <PrivateRoute
                 path='/category/:id'
                 layout={LayoutTwo}
                 component={Category}
               />
-              <RouteWrapper
+              <PrivateRoute
                 path='/products'
                 layout={LayoutTwo}
                 component={Products}
               />
-              <RouteWrapper
+              <PrivateRoute
                 path='/product/:id'
                 layout={LayoutTwo}
                 component={Product}
@@ -113,7 +113,7 @@ const MainRouter = () => {
                 layout={LayoutOne}
                 component={EditProfile}
               />
-              <RouteWrapper
+              <PrivateRoute
                 path='/user/:userId'
                 layout={LayoutOne}
                 component={Profile}
@@ -125,4 +125,5 @@ const MainRouter = () => {
     </div>
   );
 };
+
 export default MainRouter;

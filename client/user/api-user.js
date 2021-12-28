@@ -43,6 +43,8 @@ const read = async (params, credentials, signal) => {
   }
 };
 const update = async (params, credentials, user) => {
+
+  console.log(params, credentials, user);
   try {
     let response = await fetch('/api/users/' + params.userId, {
       method: 'PUT',

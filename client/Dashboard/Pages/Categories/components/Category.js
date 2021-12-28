@@ -53,7 +53,6 @@ function Category(props) {
   React.useEffect(async () => {
     const _category = await read(props.match.params.id);
     setCategory(_category);
-    console.log(_category);
     setLoading(false);
   }, []);
 

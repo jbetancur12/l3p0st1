@@ -20,6 +20,7 @@ import {
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import { Link } from 'react-router-dom';
+import auth from '../../../auth/auth-helper';
 
 // import { getInitials } from '../../utils/get-initials';
 
@@ -30,12 +31,14 @@ export const ListResults = ({
   remove,
   edit,
   cellLink,
+  adminEdit,
   ...rest
 }) => {
   const [selectedListIds, setSelectedListIds] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
   const [open, setOpen] = useState(false);
+
   const handleSelectAll = (event) => {
     let newSelectedListIds;
 
@@ -97,6 +100,9 @@ export const ListResults = ({
     props: { ...rest.form2.props, onClose: handleClose },
   };
 
+
+  const { user } = auth.isAuthenticated()
+
   return (
     <Card {...rest}>
       <PerfectScrollbar>
@@ -143,12 +149,12 @@ export const ListResults = ({
                     </TableCell>
                   ))}
                   <TableCell>
-                    <IconButton aria-label='delete' onClick={remove(list)}>
+                    {adminEdit && user.role === 'admin' && (<><IconButton aria-label='delete' onClick={remove(list)}>
                       <DeleteIcon />
                     </IconButton>
-                    <IconButton aria-label='edit' onClick={edit(list)}>
-                      <EditIcon />
-                    </IconButton>
+                      <IconButton aria-label='edit' onClick={edit(list)}>
+                        <EditIcon />
+                      </IconButton></>)}
                   </TableCell>
                   {/* <TableCell>
                     {format(list.createdAt, 'dd/MM/yyyy')}
@@ -193,9 +199,13 @@ export const ListResults = ({
         rowsPerPage={limit}
         rowsPerPageOptions={[5, 10, 25]}
       />
-    </Card>
+    </Card >
   );
 };
+
+ListResults.defaultProps = {
+  adminEdit: false,
+}
 
 ListResults.propTypes = {
   list: PropTypes.array.isRequired,

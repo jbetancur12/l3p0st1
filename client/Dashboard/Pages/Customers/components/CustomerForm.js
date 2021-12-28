@@ -1,11 +1,13 @@
-import { Button, Card, CardContent, TextField } from '@material-ui/core';
+import { Button, Card, CardContent, FormControl, InputLabel, MenuItem, Select, TextField } from '@material-ui/core';
 import React, { useState, useEffect, useContext } from 'react';
 import { useStyles } from '../../../utils';
 import { GlobalContext } from '../../../../context/GlobalContext';
+import { update } from '../../../../user/api-user';
+import auth from '../../../../auth/auth-helper'
 
 function Dashboard(props) {
   const classes = useStyles();
-  const [values, setValues] = useState({});
+  const [values, setValues] = useState({ role: props.data.role });
   const { addCategory, updateCategory } = useContext(GlobalContext);
   const ff = (arr) => {
     return arr.map((a) => a._id);
@@ -20,6 +22,7 @@ function Dashboard(props) {
   };
 
   const handleSubmit = async () => {
+
     try {
       let response;
       if (!props.data) {
@@ -31,19 +34,17 @@ function Dashboard(props) {
           body: JSON.stringify(values),
         });
 
-        const category = await response.json();
-        addCategory(category.payload);
+        // const category = await response.json();
+        // addCategory(category.payload);
       } else {
-        response = await fetch('/api/category/' + props.data._id, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
+        response = await update({
+          userId: props.data._id,
+        },
+          {
+            t: auth.isAuthenticated().token,
           },
-          body: JSON.stringify(values),
-        });
+          values)
 
-        const category = await response.json();
-        updateCategory(category.payload);
       }
       if (response.ok) {
         props.handleClose('cancel')();
@@ -74,8 +75,9 @@ function Dashboard(props) {
 
   useEffect(() => {
     if (props.data) {
+      console.log(props);
       setValues({
-        name: props.data.name,
+        ...props.data
       });
     }
   }, []);
@@ -83,15 +85,20 @@ function Dashboard(props) {
   return (
     <Card className={classes.card}>
       <CardContent>
-        <TextField
-          id='name'
-          label='Nombre'
-          className={classes.textField}
-          value={values.name}
-          onChange={handleChange('name')}
-          margin='normal'
-          required
-        />
+        <FormControl >
+          <InputLabel id="demo-simple-select-label">Rol</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={values.role}
+            onChange={handleChange('role')}
+          >
+
+            <MenuItem value={'admin'}>Admin</MenuItem>
+            <MenuItem value={'editor'}>Editor</MenuItem>
+            <MenuItem value={'user'}>Usuario</MenuItem>
+          </Select>
+        </FormControl>
         <br />
         <br />
         <Button

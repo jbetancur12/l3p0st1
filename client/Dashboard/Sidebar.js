@@ -15,11 +15,11 @@ import { Logo } from './logo';
 import { NavItem } from './nav-item';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import GroupIcon from '@material-ui/icons/Group';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import ShoppingCartIcon from '@material-ui/icons/Category';
 import PersonIcon from '@material-ui/icons/Person';
 import { useTheme } from '@material-ui/core/styles';
-import NoteIcon from '@material-ui/icons/Note';
-import CategoryIcon from '@material-ui/icons/Category';
+import NoteIcon from '@material-ui/icons/LocalLibrary';
+import CategoryIcon from '@material-ui/icons/Bookmark';
 
 const useStyles = makeStyles((theme) => ({
   drawerPape: {
@@ -53,7 +53,7 @@ const items = [
   {
     href: '/customers',
     icon: <PersonIcon fontSize='small' />,
-    title: 'Customers',
+    title: 'Usuarios',
   },
   {
     href: '/providers',

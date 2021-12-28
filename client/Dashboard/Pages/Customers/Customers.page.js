@@ -13,6 +13,7 @@ import { ListResults } from '../SharedComponents/ListTable';
 import { remove } from '../../../user/api-user';
 import { GlobalContext } from '../../../context/GlobalContext';
 import CustomerForm from './components/CustomerForm';
+import auth from '../../../auth/auth-helper';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -132,6 +133,8 @@ function Customers() {
                 remove={handleRemove}
                 open={open}
                 data={data}
+                adminEdit
+                cellLink='/user/'
                 form={<CustomerForm data={data} handleClose={handleClose} />}
               />
             ) : (

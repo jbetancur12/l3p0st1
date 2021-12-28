@@ -46,9 +46,10 @@ const UserSchema = new Schema({
     type: String,
     required: 'Password is required',
   },
-  admin: {
-    type: Boolean,
-    default: false,
+  role: {
+    type: String,
+    enum: ['admin', 'editor', 'user'],
+    default: 'user',
   },
   orders: [
     {
