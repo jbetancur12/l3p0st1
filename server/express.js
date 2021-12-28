@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser';
 import compress from 'compression';
 import cors from 'cors';
 import helmet from 'helmet';
+import morgan from 'morgan'
 
 import Template from './../template';
 import userRoutes from './routes/user.routes';
@@ -12,6 +13,7 @@ import categoryRoutes from './routes/category.routes';
 import productRoutes from './routes/product.routes';
 import providerRoutes from './routes/provider.routes';
 import orderRoutes from './routes/order.routes';
+import roleRoutes from './routes/role.routes';
 import devBundle from './devBundle';
 
 import React from 'react';
@@ -35,6 +37,7 @@ app.use(cookieParser());
 app.use(compress());
 app.use(helmet());
 app.use(cors());
+app.use(morgan('tiny'))
 
 app.use('/dist', express.static(path.join(CURRENT_WORKING_DIR, 'dist')));
 app.use('/', userRoutes);
@@ -43,6 +46,7 @@ app.use('/', categoryRoutes);
 app.use('/', productRoutes);
 app.use('/', providerRoutes);
 app.use('/', orderRoutes);
+app.use('/', roleRoutes);
 
 app.get('*', (req, res) => {
   const sheets = new ServerStyleSheets();
