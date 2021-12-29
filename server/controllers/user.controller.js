@@ -1,4 +1,5 @@
 import User from '../models/user.model';
+import Role from '../models/role.model';
 import extend from 'lodash/extend';
 import errorHandler from '../helpers/dbErrorHandler';
 
@@ -52,12 +53,29 @@ const read = (req, res) => {
 
 const update = async (req, res) => {
   try {
+
     let user = req.profile;
     user = extend(user, req.body);
     user.updated = Date.now();
     await user.save();
     user.hashed_password = undefined;
     user.salt = undefined;
+
+
+    if (req.body.role) {
+      console.log("xxxxxx", user);
+      await Role.updateMany(
+        { name: user.role },
+
+        // { $push: { providers: _provider._id } },
+        {
+          $addToSet: {
+            users: user._id,
+          },
+        },
+      );
+    }
+
     res.json(user);
   } catch (err) {
     return res.status(400).json({
