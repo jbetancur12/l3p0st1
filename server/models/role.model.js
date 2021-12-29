@@ -3,9 +3,9 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const RoleSchema = new Schema({
-  role: {
+  name: {
     type: String,
-    enum: ['admin', 'editor', 'user'],
+    enum: ['admin', 'editor', 'user', 'guest'],
     default: 'user',
   },
 

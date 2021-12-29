@@ -2,6 +2,7 @@ import Role from '../models/role.model';
 import errorHandler from '../helpers/dbErrorHandler';
 
 const create = async (req, res) => {
+  console.log(req.body);
   const role = new Role(req.body);
   try {
     await role.save();
@@ -22,7 +23,6 @@ const create = async (req, res) => {
 const list = async (req, res) => {
   try {
     let roles = await Role.find({})
-      .populate('users', 'name email');
     res.json(roles);
   } catch (err) {
     return res.status(400).json({
@@ -66,8 +66,9 @@ const roleName = async (req, res, next, name) => {
 const read = async (req, res) => {
   try {
     const role_id = req.role;
+    console.log(role_id);
     const role = await Role.findById(role_id).populate(
-      'roles', 'role'
+      'users', 'name'
     );
     res.json(role);
   } catch (error) {
