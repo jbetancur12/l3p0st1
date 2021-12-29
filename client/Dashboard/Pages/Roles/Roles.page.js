@@ -7,13 +7,12 @@ import {
   useTheme,
 } from '@material-ui/core';
 import React, { useEffect, useState, useContext } from 'react';
-import { list as listCategories, remove } from '../../../core/api-categories';
+import { list as listRoles, remove } from '../../../core/api-roles';
 import { CustomerListToolbar } from '../SharedComponents/ListToolbar';
 import { ListResults } from '../SharedComponents/ListTable';
 
-import { GlobalContext } from '../../../context/GlobalContext';
-import CategoryForm from './components/CategoryForm';
-import CategoryFormList from './components/CategoryFormList';
+import { GlobalContext } from '../../../context/RoleContext';
+import RoleForm from './components/RoleForm';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,51 +25,52 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Categories() {
+function Roles() {
+  console.log('Roles', useContext(GlobalContext));
   const classes = useStyles();
   const theme = useTheme();
-  const { categories, loadCategories } = useContext(GlobalContext);
-  const [categoriesCopy, setCategoriesCopy] = useState([]);
+  const { roles, loadRoles } = useContext(GlobalContext);
+  const [rolesCopy, setRolesCopy] = useState([]);
   const [selectedValue, setSelectedValue] = React.useState('name');
   const [open, setOpen] = useState(false);
   const [data, setData] = useState({});
   const [data2, setData2] = useState({});
   const [loading, setLoading] = useState(true);
-  const { deleteCategory } = useContext(GlobalContext);
+  const { deleteRole } = useContext(GlobalContext);
 
   useEffect(async () => {
-    const _categories = await listCategories();
-    loadCategories(_categories);
-    setCategoriesCopy(_categories);
-    if (_categories) setLoading(false);
+    const _roles = await listRoles();
+    loadRoles(_roles);
+    setRolesCopy(_roles);
+    if (_roles) setLoading(false);
   }, []);
 
   const requestSearch = (searchedVal) => {
-    const filteredRows = categoriesCopy.filter((row) => {
+    const filteredRows = rolesCopy.filter((row) => {
       return row[selectedValue]
         .toLowerCase()
         .includes(searchedVal.target.value.toLowerCase());
     });
-    loadCategories(filteredRows);
+    loadRoles(filteredRows);
   };
 
-  const filterOptions = [{ value: 'name', label: 'Nombre' }];
+  const filterOptions = [{ value: 'name', label: 'Name' }];
 
   const cells = [
     {
-      name: 'Nombre',
+      name: 'Rol',
       value: 'name',
     },
   ];
 
-  const handleRemove = (category) => async () => {
-    await remove(category._id);
-    deleteCategory(category._id);
+  const handleRemove = (role) => async () => {
+    await remove(role._id);
+    deleteRole(role._id);
   };
 
-  const handleOpen = (category) => () => {
+  const handleOpen = (role) => () => {
     setOpen(true);
-    setData(category);
+    setData(role);
   };
 
   const handleClose = (action) => () => {
@@ -116,23 +116,23 @@ function Categories() {
             selectedValue={selectedValue}
             setSelectedValue={setSelectedValue}
             filterOptions={filterOptions}
-            title='Categoria'
+            title='Rol'
             id='xxx'
-            form={<CategoryForm />}
+            form={<RoleForm />}
           />
           <Box marginTop={theme.spacing(1 * 0.38)}>
-            {categories.length > 0 ? (
+            {roles.length > 0 ? (
               <ListResults
-                list={categories}
+                list={roles}
                 cells={cells}
                 edit={handleOpen}
                 remove={handleRemove}
                 open={open}
                 data={data}
-                form={<CategoryForm data={data} handleClose={handleClose} />}
-                // form2={<CategoryFormList data={data2} />}
+                form={<RoleForm data={data} handleClose={handleClose} />}
+                // form2={<RoleFormList data={data2} />}
                 clickcell={onClickCell}
-                cellLink='/category/'
+                cellLink='/role/'
                 adminEdit
               />
             ) : (
@@ -145,4 +145,4 @@ function Categories() {
   );
 }
 
-export default Categories;
+export default Roles;

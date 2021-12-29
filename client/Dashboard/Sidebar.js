@@ -20,6 +20,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import { useTheme } from '@material-ui/core/styles';
 import NoteIcon from '@material-ui/icons/LocalLibrary';
 import CategoryIcon from '@material-ui/icons/Bookmark';
+import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
 
 const useStyles = makeStyles((theme) => ({
   drawerPape: {
@@ -64,6 +65,11 @@ const items = [
     href: '/categories',
     icon: <CategoryIcon fontSize='small' />,
     title: 'Categorias',
+  },
+  {
+    href: '/roles',
+    icon: <VerifiedUserIcon fontSize='small' />,
+    title: 'Roles',
   },
 ];
 

@@ -19,9 +19,12 @@ import Categories from './Dashboard/Pages/Categories/Categories.page';
 import Category from './Dashboard/Pages/Categories/components/Category';
 import Products from './Dashboard/Pages/Products/Products.page';
 import Product from './Dashboard/Pages/Products/components/Product';
+import Roles from './Dashboard/Pages/Roles/Roles.page';
+import Role from './Dashboard/Pages/Roles/components/Role';
 import { ContextProvider } from './context/GlobalContext';
 import { ContextProvider as ProviderContext } from './context/ProviderContext';
 import { ContextProvider as ProductContext } from './context/ProductContext';
+import { ContextProvider as RoleContext } from './context/RoleContext';
 
 function RouteWrapper({ component: Component, layout: Layout, ...rest }) {
   return (
@@ -47,81 +50,94 @@ const MainRouter = () => {
 
   return (
     <div>
-      <ProductContext>
-        <ProviderContext>
-          <ContextProvider>
-            <Switch>
-              <RouteWrapper
-                exact
-                path='/'
-                layout={LayoutOne}
-                component={Home}
-              />
-              <RouteWrapper
-                path='/users'
-                layout={LayoutOne}
-                component={Users}
-              />
-              <RouteWrapper
-                path='/signup'
-                layout={LayoutOne}
-                component={Signup}
-              />
-              <RouteWrapper
-                path='/signin'
-                layout={LayoutOne}
-                component={Signin}
-              />
+      <RoleContext>
+        <ProductContext>
+          <ProviderContext>
+            <ContextProvider>
+              <Switch>
+                <RouteWrapper
+                  exact
+                  path='/'
+                  layout={LayoutOne}
+                  component={Home}
+                />
+                <RouteWrapper
+                  path='/users'
+                  layout={LayoutOne}
+                  component={Users}
+                />
+                <RouteWrapper
+                  path='/signup'
+                  layout={LayoutOne}
+                  component={Signup}
+                />
+                <RouteWrapper
+                  path='/signin'
+                  layout={LayoutOne}
+                  component={Signin}
+                />
 
-              <PrivateRoute
-                path='/customers'
-                layout={LayoutTwo}
-                component={Customers}
-              />
-              <PrivateRoute
-                path='/providers'
-                layout={LayoutTwo}
-                component={Providers}
-              />
-              <PrivateRoute
-                path='/provider/:id'
-                layout={LayoutTwo}
-                component={Provider}
-              />
-              <PrivateRoute
-                path='/categories'
-                layout={LayoutTwo}
-                component={Categories}
-              />
-              <PrivateRoute
-                path='/category/:id'
-                layout={LayoutTwo}
-                component={Category}
-              />
-              <PrivateRoute
-                path='/products'
-                layout={LayoutTwo}
-                component={Products}
-              />
-              <PrivateRoute
-                path='/product/:id'
-                layout={LayoutTwo}
-                component={Product}
-              />
-              <PrivateRoute
-                path='/user/edit/:userId'
-                layout={LayoutOne}
-                component={EditProfile}
-              />
-              <PrivateRoute
-                path='/user/:userId'
-                layout={LayoutOne}
-                component={Profile}
-              />
-            </Switch>
-          </ContextProvider>
-        </ProviderContext>
-      </ProductContext>
+                <PrivateRoute
+                  path='/customers'
+                  layout={LayoutTwo}
+                  component={Customers}
+                />
+                <PrivateRoute
+                  path='/providers'
+                  layout={LayoutTwo}
+                  component={Providers}
+                />
+                <PrivateRoute
+                  path='/provider/:id'
+                  layout={LayoutTwo}
+                  component={Provider}
+                />
+                <PrivateRoute
+                  path='/categories'
+                  layout={LayoutTwo}
+                  component={Categories}
+                />
+                <PrivateRoute
+                  path='/category/:id'
+                  layout={LayoutTwo}
+                  component={Category}
+                />
+                <PrivateRoute
+                  path='/products'
+                  layout={LayoutTwo}
+                  component={Products}
+                />
+                <PrivateRoute
+                  path='/product/:id'
+                  layout={LayoutTwo}
+                  component={Product}
+                />
+                <PrivateRoute
+                  path='/user/edit/:userId'
+                  layout={LayoutOne}
+                  component={EditProfile}
+                />
+                <PrivateRoute
+                  path='/user/:userId'
+                  layout={LayoutOne}
+                  component={Profile}
+                />
+
+                <PrivateRoute
+                  path='/roles'
+                  layout={LayoutTwo}
+                  component={Roles}
+                />
+                <PrivateRoute
+                  path='/role/:id'
+                  layout={LayoutTwo}
+                  component={Role}
+                />
+              </Switch>
+            </ContextProvider>
+          </ProviderContext>
+        </ProductContext>
+      </RoleContext>
     </div>
   );
 };
